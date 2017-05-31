@@ -1,5 +1,6 @@
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -12,77 +13,78 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.TransferHandler;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
-public class Maze extends JFrame implements MouseListener {
+public class Init extends JFrame implements MouseListener {
 
-	public static JLabel selectedIcon;
-	
 	private JPanel contentPane;
+	public JLabel selectedIcon;	// user selected token
+	public ButtonEvent buttonEvent = new ButtonEvent();
+	public GameBoard gameBoard;
 
+	public JLabel getSelectedIcon() {
+		return selectedIcon;
+	}
+
+	public void setSelectedIcon(JLabel selectedIcon) {
+		this.selectedIcon = selectedIcon;
+	}
+
+	
 	/**
 	 * Create the frame.
 	 */
-	public Maze() {
-
-		init();
+	public Init() {
+		init();		
 
 	}
 	// end maze func
 	
+	/**
+	 *  Implement Mouse event 
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		// TODO mouse Pressed func
 
 		JComponent jc = (JComponent) e.getSource();
 
-		// jc commponent type check
-
+		/* jc commponent type check */
+		
 		// Button type
 		if (jc.getUIClassID().equals("ButtonUI")) {;
-			JButton btn = (JButton)jc;
-			System.out.println(btn.getIcon().toString());
+			JButton jb = (JButton)jc;
+			buttonEvent.action(jb, this, gameBoard);
 			
-			System.out.println(selectedIcon);
-
 		}
-
 		// Label UI
-		if (jc.getUIClassID().equals("LabelUI")) {
-			System.out.println(jc);
+		else if (jc.getUIClassID().equals("LabelUI")) {
+	
 			TransferHandler th = jc.getTransferHandler();
 			th.exportAsDrag(jc, e, TransferHandler.COPY);
+			setSelectedIcon((JLabel)jc);
 			
-			selectedIcon = (JLabel)jc;
+			jc.setBorder(new LineBorder(Color.red, 3));
 
 		}
 
 	}
-
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
+	public void mouseClicked(MouseEvent e) {}
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
+	public void mouseEntered(MouseEvent e) {}
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		JComponent jc = (JComponent) e.getSource();
+		jc.setBorder(new LineBorder(Color.red,0));
 	}
-
-
-
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 
 	}
+	
+	
 
 	/**
 	 * init func
@@ -275,6 +277,9 @@ public class Maze extends JFrame implements MouseListener {
 		start.addMouseListener(this);
 		clear.addMouseListener(this);
 		laser.addMouseListener(this);
+		
+		left.addMouseListener(this);
+		right.addMouseListener(this);
 
 		p1.setTransferHandler(new TransferHandler("icon"));
 		p2.setTransferHandler(new TransferHandler("icon"));
@@ -381,6 +386,13 @@ public class Maze extends JFrame implements MouseListener {
 		getContentPane().add(inputGreenR);
 		getContentPane().add(inputBlueR);
 		getContentPane().add(inputYellowR);
+		
+		/************ set Gameboard ************/
+		
+		gameBoard = new GameBoard(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, 
+								p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
+		
+		/***************************************/
 
 		getContentPane().setLayout(null);
 		setSize(1110, 943);

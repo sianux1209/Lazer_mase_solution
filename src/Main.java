@@ -10,7 +10,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Maze frame = new Maze();
+					Init frame = new Init();
 					frame.setVisible(true);
 					frame.setResizable(false);
 					// CircleMove ex = new CircleMove();

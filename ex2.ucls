@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.10" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="CircleMove" project="JAVA team project" 
-    file="/JAVA team project/src/CircleMove.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="589" y="177"/>    
+  <class id="1" language="java" name="CircleMove" project="Laser_Maze_Solution" 
+    file="/Laser_Maze_Solution/src/CircleMove.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="356" y="126"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="Maze" project="JAVA team project" file="/JAVA team project/src/Maze.java" 
+  <class id="2" language="java" name="Init" project="Laser_Maze_Solution" file="/Laser_Maze_Solution/src/Init.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="734" y="195"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -19,9 +19,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="Ball" project="JAVA team project" file="/JAVA team project/src/Ball.java" 
+  <class id="3" language="java" name="Ball" project="Laser_Maze_Solution" file="/Laser_Maze_Solution/src/Ball.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="465" y="386"/>    
+    <position height="-1" width="-1" x="410" y="322"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -31,10 +31,10 @@
   <association id="4">    
     <end type="SOURCE" refId="1" navigable="false">      
       <attribute id="5" name="b">        
-        <position height="0" width="0" x="-148" y="-20"/>      
+        <position height="0" width="0" x="-203" y="-84"/>      
       </attribute>      
       <multiplicity id="6" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-148" y="-20"/>      
+        <position height="0" width="0" x="-203" y="-84"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
