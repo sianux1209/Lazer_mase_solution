@@ -7,12 +7,20 @@ public class ButtonEvent {
 	public GameBoard gameBoard;
 	
 	/**
+	 * set get init and gameBoard
+	 * @param init
+	 * @param gameBoard
+	 */
+	public ButtonEvent(Init init, GameBoard gameBoard){
+		this.init = init;
+		this.gameBoard = gameBoard;
+	}
+	
+	/**
 	 * Check the user-clicked button and execute the function
 	 * @param JButton
 	 */
 	public void action(JButton jb, Init init, GameBoard gameBoard){
-		
-		this.init = init;
 		
 		if (jb.getIcon().toString().equals("Start.jpg")){
 			start();
@@ -50,6 +58,7 @@ public class ButtonEvent {
 		System.out.println("Act the start");
 		
 		
+		
 	} // finish start func
 	
 	/**
@@ -76,10 +85,9 @@ public class ButtonEvent {
 	public void left(){
 		System.out.println("Act the left");
 		
-		Icon icon = init.selectedIcon.getIcon();
+		Icon icon = gameBoard.getSelectedIcon().getIcon();
 		RotatedIcon rotatedIcon = new RotatedIcon(icon, RotatedIcon.Rotate.UP);
-		init.selectedIcon.setIcon(rotatedIcon);
-	
+		gameBoard.getSelectedIcon().setIcon(rotatedIcon);;
 		
 	}
 	
@@ -89,10 +97,9 @@ public class ButtonEvent {
 	public void right(){
 		System.out.println("Act the rightt");
 		
-		System.out.println("Act the left");
-		
-		Icon icon = init.selectedIcon.getIcon();
+		Icon icon = gameBoard.getSelectedIcon().getIcon();
 		RotatedIcon rotatedIcon = new RotatedIcon(icon, RotatedIcon.Rotate.DOWN);
-		init.selectedIcon.setIcon(rotatedIcon);
+		gameBoard.getSelectedIcon().setIcon(rotatedIcon);;
+		
 	}
 }

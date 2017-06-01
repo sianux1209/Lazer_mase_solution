@@ -18,17 +18,10 @@ import javax.swing.border.LineBorder;
 public class Init extends JFrame implements MouseListener {
 
 	private JPanel contentPane;
-	public JLabel selectedIcon;	// user selected token
-	public ButtonEvent buttonEvent = new ButtonEvent();
+	public ButtonEvent buttonEvent;
 	public GameBoard gameBoard;
 
-	public JLabel getSelectedIcon() {
-		return selectedIcon;
-	}
 
-	public void setSelectedIcon(JLabel selectedIcon) {
-		this.selectedIcon = selectedIcon;
-	}
 
 	
 	/**
@@ -36,6 +29,7 @@ public class Init extends JFrame implements MouseListener {
 	 */
 	public Init() {
 		init();		
+		buttonEvent = new ButtonEvent(this, gameBoard);
 
 	}
 	// end maze func
@@ -62,7 +56,7 @@ public class Init extends JFrame implements MouseListener {
 	
 			TransferHandler th = jc.getTransferHandler();
 			th.exportAsDrag(jc, e, TransferHandler.COPY);
-			setSelectedIcon((JLabel)jc);
+			gameBoard.setSelectedIcon((JLabel)jc);
 			
 			jc.setBorder(new LineBorder(Color.red, 3));
 
@@ -391,6 +385,8 @@ public class Init extends JFrame implements MouseListener {
 		
 		gameBoard = new GameBoard(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, 
 								p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
+		
+		gameBoard.setSelectedIcon(p1);	// selectedIcon init
 		
 		/***************************************/
 

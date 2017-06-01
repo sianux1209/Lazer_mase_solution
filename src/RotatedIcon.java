@@ -34,6 +34,8 @@ public class RotatedIcon implements Icon
 	private double degrees;
 	private boolean circularIcon;
 
+
+
 	/**
 	 *  Convenience constructor to create a RotatedIcon that is rotated DOWN.
 	 *
@@ -253,4 +255,11 @@ public class RotatedIcon implements Icon
 
 		g2.dispose();
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return icon.toString();
+	}
+	
 }
