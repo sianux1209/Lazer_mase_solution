@@ -22,7 +22,7 @@ public class Direction {
 	 */
 	public void turnRight(GameBoard gameBoard){
 		
-		RotatedIcon rotatedIcon = new RotatedIcon(gameBoard.getSelectedLabel().getIcon(), RotatedIcon.Rotate.UP);
+		RotatedIcon rotatedIcon = new RotatedIcon(gameBoard.getSelectedLabel().getIcon(), RotatedIcon.Rotate.DOWN);
 		gameBoard.getSelectedLabel().setIcon(rotatedIcon);
 		
 		try{

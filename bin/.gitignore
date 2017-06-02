@@ -14,3 +14,6 @@
 /Token$CurrentLocation.class
 /Laser.class
 /Laser$CurrentLocation.class
+/Laser$Location.class
+/Solver$HitDirection.class
+/Token$HitDirection.class
