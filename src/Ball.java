@@ -1,6 +1,7 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
 class Ball extends JPanel implements Runnable
 {
     public int x, y;
@@ -75,3 +76,4 @@ class Ball extends JPanel implements Runnable
         paint(g);
     }
 }
+//

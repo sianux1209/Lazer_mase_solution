@@ -1,6 +1,7 @@
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -20,10 +21,24 @@ public class Init extends JFrame implements MouseListener {
 	private JPanel contentPane;
 	public ButtonEvent buttonEvent;
 	public GameBoard gameBoard;
-
-
-
 	
+	JLabel numberOfTargets;
+	
+	JLabel red;
+	JLabel redR;
+	JLabel target;
+	JLabel targetR;
+	JLabel mirror;
+	JLabel mirrorR;
+	JLabel green;
+	JLabel greenR;
+	JLabel blue;
+	JLabel blueR;
+	JLabel yellow;
+	JLabel yellowR;
+	JLabel black;
+	JLabel token;
+
 	/**
 	 * Create the frame.
 	 */
@@ -42,7 +57,8 @@ public class Init extends JFrame implements MouseListener {
 		// TODO mouse Pressed func
 
 		JComponent jc = (JComponent) e.getSource();
-
+		jc.setBorder(new LineBorder(Color.red, 3));
+		
 		/* jc commponent type check */
 		
 		// Button type
@@ -56,11 +72,18 @@ public class Init extends JFrame implements MouseListener {
 	
 			TransferHandler th = jc.getTransferHandler();
 			th.exportAsDrag(jc, e, TransferHandler.COPY);
-			gameBoard.setSelectedIcon((JLabel)jc);
-			
-			jc.setBorder(new LineBorder(Color.red, 3));
+			gameBoard.setSelectedLabel((JLabel)jc);
 
 		}
+		
+		// trouble shooting
+		// if direction of selected label is null
+		// that direction initialize in game-board.
+		if(gameBoard.getSelectedLabel().getName() == null){
+			gameBoard.getSelectedLabel().setName("UP");
+			String iconName = gameBoard.getSelectedLabel().getIcon().toString();
+			gameBoard.getSelectedLabel().setIcon(new ImageIcon(iconName));
+		} //end trouble shooting
 
 	}
 	@Override
@@ -71,13 +94,55 @@ public class Init extends JFrame implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		JComponent jc = (JComponent) e.getSource();
 		jc.setBorder(new LineBorder(Color.red,0));
+		checkTargets();	// check the number of targets
+		setControlToken();
 	}
 	@Override
-	public void mouseReleased(MouseEvent e) {
-
-
-	}
+	public void mouseReleased(MouseEvent e) {}
 	
+	/**
+	 * Check the number of targets
+	 */
+	public void checkTargets(){
+		
+		Integer targetCount = 0;
+		for(int i=0; i<GameBoard.TABLE_SIZE; i++){
+			for(int j=0; j<GameBoard.TABLE_SIZE; j++){
+				String token = gameBoard.gameBoard[i][j].getIcon().toString();
+				if(token == "Target.jpg" || token == "TargetR.jpg"){
+					targetCount++;
+				} // if end
+			} // inner for
+		} // end outer for
+		
+		this.numberOfTargets.setText(targetCount.toString());
+		
+		
+	} // end checkTargets func
+	
+	
+	/*
+	 * set tokens of control panel
+	 * func for trouble shooting
+	 */
+	public void setControlToken(){
+		
+		red.setIcon(new ImageIcon("Red.jpg"));
+		redR.setIcon(new ImageIcon("RedR.jpg"));
+		target.setIcon(new ImageIcon("Target.jpg"));
+		targetR.setIcon(new ImageIcon("TargetR.jpg"));
+		mirror.setIcon(new ImageIcon("Mirror.jpg"));
+		mirrorR.setIcon(new ImageIcon("MirrorR.jpg"));
+		green.setIcon(new ImageIcon("Green.jpg"));
+		greenR.setIcon(new ImageIcon("GreenR.jpg"));
+		blue.setIcon(new ImageIcon("Blue.jpg"));
+		blueR.setIcon(new ImageIcon("BlueR.jpg"));
+		yellow.setIcon(new ImageIcon("Yellow.jpg"));
+		yellowR.setIcon(new ImageIcon("YellowR.jpg"));
+		black.setIcon(new ImageIcon("Black.jpg"));
+		token.setIcon(new ImageIcon("Token.jpg"));
+		
+	}
 	
 
 	/**
@@ -118,20 +183,20 @@ public class Init extends JFrame implements MouseListener {
 		JLabel p24 = new JLabel(new ImageIcon("White.jpg"));
 		JLabel p25 = new JLabel(new ImageIcon("White.jpg"));
 
-		JLabel red = new JLabel(new ImageIcon("Red.jpg"));
-		JLabel redR = new JLabel(new ImageIcon("RedR.jpg"));
-		JLabel target = new JLabel(new ImageIcon("Target.jpg"));
-		JLabel targetR = new JLabel(new ImageIcon("TargetR.jpg"));
-		JLabel mirror = new JLabel(new ImageIcon("Mirror.jpg"));
-		JLabel mirrorR = new JLabel(new ImageIcon("MirrorR.jpg"));
-		JLabel green = new JLabel(new ImageIcon("Green.jpg"));
-		JLabel greenR = new JLabel(new ImageIcon("GreenR.jpg"));
-		JLabel blue = new JLabel(new ImageIcon("Blue.jpg"));
-		JLabel blueR = new JLabel(new ImageIcon("BlueR.jpg"));
-		JLabel yellow = new JLabel(new ImageIcon("Yellow.jpg"));
-		JLabel yellowR = new JLabel(new ImageIcon("YellowR.jpg"));
-		JLabel black = new JLabel(new ImageIcon("Black.jpg"));
-		JLabel token = new JLabel(new ImageIcon("Token.jpg"));
+		red = new JLabel(new ImageIcon("Red.jpg"));
+		redR = new JLabel(new ImageIcon("RedR.jpg"));
+		target = new JLabel(new ImageIcon("Target.jpg"));
+		targetR = new JLabel(new ImageIcon("TargetR.jpg"));
+		mirror = new JLabel(new ImageIcon("Mirror.jpg"));
+		mirrorR = new JLabel(new ImageIcon("MirrorR.jpg"));
+		green = new JLabel(new ImageIcon("Green.jpg"));
+		greenR = new JLabel(new ImageIcon("GreenR.jpg"));
+		blue = new JLabel(new ImageIcon("Blue.jpg"));
+		blueR = new JLabel(new ImageIcon("BlueR.jpg"));
+		yellow = new JLabel(new ImageIcon("Yellow.jpg"));
+		yellowR = new JLabel(new ImageIcon("YellowR.jpg"));
+		black = new JLabel(new ImageIcon("Black.jpg"));
+		token = new JLabel(new ImageIcon("Token.jpg"));
 
 		JButton start = new JButton(new ImageIcon("Start.jpg"));
 		JButton clear = new JButton(new ImageIcon("Clear.jpg"));
@@ -149,13 +214,18 @@ public class Init extends JFrame implements MouseListener {
 		JLabel userBlueR = new JLabel(new ImageIcon("BlueR.jpg"));
 		JLabel userYellowR = new JLabel(new ImageIcon("YellowR.jpg"));
 
-		JTextField ex = new JTextField();
+		numberOfTargets = new JLabel("sadadsa");
+		numberOfTargets.setHorizontalAlignment(JLabel.CENTER);
+		numberOfTargets.setFont(new Font("Arial", Font.PLAIN, 50));
+		
 		JTextField inputRedR = new JTextField();
 		JTextField inputTargetR = new JTextField();
 		JTextField inputMirrorR = new JTextField();
 		JTextField inputGreenR = new JTextField();
 		JTextField inputBlueR = new JTextField();
 		JTextField inputYellowR = new JTextField();
+		
+		
 
 		/*
 		 * contentPane.add(p1, BorderLayout.SOUTH); contentPane.add(p2,
@@ -219,7 +289,7 @@ public class Init extends JFrame implements MouseListener {
 		userBlueR.setBounds(500, 700, 100, 100);
 		userYellowR.setBounds(600, 700, 100, 100);
 
-		ex.setBounds(0, 800, 100, 100);
+		numberOfTargets.setBounds(0, 800, 100, 100);
 		inputRedR.setBounds(100, 800, 100, 100);
 		inputTargetR.setBounds(200, 800, 100, 100);
 		inputMirrorR.setBounds(300, 800, 100, 100);
@@ -266,7 +336,6 @@ public class Init extends JFrame implements MouseListener {
 		yellow.addMouseListener(this);
 		yellowR.addMouseListener(this);
 		black.addMouseListener(this);
-		token.addMouseListener(this);
 
 		start.addMouseListener(this);
 		clear.addMouseListener(this);
@@ -314,7 +383,6 @@ public class Init extends JFrame implements MouseListener {
 		yellow.setTransferHandler(new TransferHandler("icon"));
 		yellowR.setTransferHandler(new TransferHandler("icon"));
 		black.setTransferHandler(new TransferHandler("icon"));
-		token.setTransferHandler(new TransferHandler("icon"));
 
 		getContentPane().add(p1);
 		getContentPane().add(p2);
@@ -373,7 +441,7 @@ public class Init extends JFrame implements MouseListener {
 		getContentPane().add(userBlueR);
 		getContentPane().add(userYellowR);
 
-		getContentPane().add(ex);
+		getContentPane().add(numberOfTargets);
 		getContentPane().add(inputRedR);
 		getContentPane().add(inputTargetR);
 		getContentPane().add(inputMirrorR);
@@ -386,7 +454,7 @@ public class Init extends JFrame implements MouseListener {
 		gameBoard = new GameBoard(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, 
 								p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
 		
-		gameBoard.setSelectedIcon(p1);	// selectedIcon init
+		gameBoard.setSelectedLabel(p1);	// selectedIcon init
 		
 		/***************************************/
 
@@ -399,3 +467,5 @@ public class Init extends JFrame implements MouseListener {
 	// End init func
 
 }
+
+//

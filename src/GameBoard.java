@@ -1,29 +1,26 @@
-import java.util.HashMap;
-
 import javax.swing.JLabel;
 
 public class GameBoard {
 	
-	private JLabel[][] gameBoard;
-	private RotatedIcon[][] rotatedIcon;
-	private HashMap<Integer, RotatedIcon> boardToken;
-	private JLabel selectedIcon;	// user selected token
+	public JLabel[][] gameBoard;
+	private JLabel selectedLabel;	// user selected token
+	private Direction direction;
 	public static final int TABLE_SIZE = 5;
 	
 	/**
 	 * selectedIcon getter
 	 * @return
 	 */
-	public JLabel getSelectedIcon() {
-		return selectedIcon;
+	public JLabel getSelectedLabel() {
+		return this.selectedLabel;
 	}
 
 	/**
 	 * selectedIcon setter
-	 * @param selectedIcon
+	 * @param selectedILabel
 	 */
-	public void setSelectedIcon(JLabel selectedIcon) {
-		this.selectedIcon = selectedIcon;
+	public void setSelectedLabel(JLabel selectedILabel) {
+		this.selectedLabel = selectedILabel;
 	}
 	
 	/**
@@ -34,8 +31,7 @@ public class GameBoard {
 		
 		int i, j;
 
-		this.gameBoard = new JLabel[TABLE_SIZE][TABLE_SIZE];
-		this.rotatedIcon = new RotatedIcon[TABLE_SIZE][TABLE_SIZE];
+		this.gameBoard = new JLabel[TABLE_SIZE][TABLE_SIZE];;
 		
 		// Init game board
 		int cnt = 0;
@@ -44,28 +40,9 @@ public class GameBoard {
 				this.gameBoard[i][j] = gameBoard[cnt];
 				cnt++;
 			}
-		} // finish for control
+		} // finish "for" control
+	
 		
-		// Init token direction
-		cnt = 0;
-		for(i=0; i < this.rotatedIcon.length; i++){
-			for(j=0; j<this.rotatedIcon[i].length;j++){
-				this.rotatedIcon[i][j] = new RotatedIcon(this.gameBoard[i][j].getIcon());
-				cnt++;
-			}
-			
-		} // finish for control
-		
-		// Init board toke
-		boardToken = new HashMap<Integer, RotatedIcon>();
-		
-		for(i=0; i < TABLE_SIZE; i++){
-			for(j=0; j < TABLE_SIZE; j++){
-				int hashcode = this.gameBoard[i][j].hashCode();
-				boardToken.put(hashcode, this.rotatedIcon[i][j]);
-			}
-			
-		}
 				
 	} // finish GameBoard constructor
 
@@ -82,22 +59,23 @@ public class GameBoard {
 		} // finish for control
 		
 	} // finish check GameBoard func
+
+	public void checkRotate() {
+		// TODO Auto-generated method stub
+		for(int i=0; i<TABLE_SIZE;i++){
+			for(int j=0; j<TABLE_SIZE;j++){
+				System.out.print(gameBoard[i][j].getName() + "\t");
+			}
+			System.out.println();
+		}
+	}
 	
 	
 	/**
 	 * Check token direction in game board
 	 */
-	public void checkTokenRotate(){
-		
-		for(RotatedIcon[] x : rotatedIcon){
-			for(RotatedIcon y : x){
-				System.out.print(y.getRotate().toString() + "\t");
-			}
-			System.out.println();
-		} // finish for control
-		
-		
-	} // finish check Token Roate
 	
 
+
 }
+//

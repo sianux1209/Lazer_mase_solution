@@ -10,6 +10,7 @@ import javax.swing.Icon;
  *  rotating the Icon before it is painted. This class supports the following
  *  orientations:
  *
+ *
  * <ul>
  * <li>DOWN - rotated 90 degrees
  * <li>UP (default) - rotated -90 degrees
