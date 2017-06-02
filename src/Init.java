@@ -79,7 +79,7 @@ public class Init extends JFrame implements MouseListener {
 		// trouble shooting
 		// if direction of selected label is null
 		// that direction initialize in game-board.
-		if(gameBoard.getSelectedLabel().getName() == null){
+		if(gameBoard.getSelectedLabel().getName() == null && gameBoard.getSelectedLabel().getIcon().toString() != "White.jpg"){
 			gameBoard.getSelectedLabel().setName("UP");
 			String iconName = gameBoard.getSelectedLabel().getIcon().toString();
 			gameBoard.getSelectedLabel().setIcon(new ImageIcon(iconName));
@@ -216,14 +216,32 @@ public class Init extends JFrame implements MouseListener {
 
 		numberOfTargets = new JLabel("sadadsa");
 		numberOfTargets.setHorizontalAlignment(JLabel.CENTER);
-		numberOfTargets.setFont(new Font("Arial", Font.PLAIN, 50));
+		numberOfTargets.setFont(new Font("Arial", Font.PLAIN, 40));
 		
 		JTextField inputRedR = new JTextField();
+		inputRedR.setHorizontalAlignment(JLabel.CENTER);
+		inputRedR.setFont(new Font("Arial", Font.PLAIN, 40));
+		
 		JTextField inputTargetR = new JTextField();
+		inputTargetR.setHorizontalAlignment(JLabel.CENTER);
+		inputTargetR.setFont(new Font("Arial", Font.PLAIN, 40));
+		
 		JTextField inputMirrorR = new JTextField();
+		inputMirrorR.setHorizontalAlignment(JLabel.CENTER);
+		inputMirrorR.setFont(new Font("Arial", Font.PLAIN, 40));
+		
 		JTextField inputGreenR = new JTextField();
+		inputGreenR.setHorizontalAlignment(JLabel.CENTER);
+		inputGreenR.setFont(new Font("Arial", Font.PLAIN, 40));
+		
 		JTextField inputBlueR = new JTextField();
+		inputBlueR.setHorizontalAlignment(JLabel.CENTER);
+		inputBlueR.setFont(new Font("Arial", Font.PLAIN, 40));
+		
 		JTextField inputYellowR = new JTextField();
+		inputYellowR.setHorizontalAlignment(JLabel.CENTER);
+		inputYellowR.setFont(new Font("Arial", Font.PLAIN, 40));
+		
 		
 		
 

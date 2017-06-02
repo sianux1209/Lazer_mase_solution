@@ -31,7 +31,8 @@ public class GameBoard {
 		
 		int i, j;
 
-		this.gameBoard = new JLabel[TABLE_SIZE][TABLE_SIZE];;
+		this.gameBoard = new JLabel[TABLE_SIZE][TABLE_SIZE];
+		
 		
 		// Init game board
 		int cnt = 0;

@@ -72,6 +72,3 @@ public class Direction {
 	} // finish turn right
 	
 } // end Direction class
-
-
-//
