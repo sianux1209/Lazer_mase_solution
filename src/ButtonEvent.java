@@ -36,9 +36,13 @@ public class ButtonEvent {
 		if (jb.getIcon().toString().equals("Start.jpg")) {
 			
 			//gameBoard.checkGameBoard();
-			gameBoard.checkRotate();
+			
+			System.out.println();
 			
 			start();
+			gameBoard.checkRotate();
+			
+			System.out.println();
 			
 
 		} else if (jb.getIcon().toString().equals("Clear.jpg")) {
@@ -118,7 +122,7 @@ public class ButtonEvent {
 	 */
 	public void right() {
 		System.out.println("Act the rightt");
-		direction.turnLeft(gameBoard);
+		direction.turnRight(gameBoard);
 
 	}
 }

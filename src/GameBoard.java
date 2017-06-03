@@ -4,24 +4,8 @@ public class GameBoard {
 	
 	public JLabel[][] gameBoard;
 	private JLabel selectedLabel;	// user selected token
-	private Direction direction;
 	public static final int TABLE_SIZE = 5;
-	
-	/**
-	 * selectedIcon getter
-	 * @return
-	 */
-	public JLabel getSelectedLabel() {
-		return this.selectedLabel;
-	}
-
-	/**
-	 * selectedIcon setter
-	 * @param selectedILabel
-	 */
-	public void setSelectedLabel(JLabel selectedILabel) {
-		this.selectedLabel = selectedILabel;
-	}
+	private boolean yellowToken = true;
 	
 	/**
 	 * set default gameboard conf
@@ -42,10 +26,38 @@ public class GameBoard {
 				cnt++;
 			}
 		} // finish "for" control
-	
-		
 				
 	} // finish GameBoard constructor
+	
+	
+	public boolean isYellowToken() {
+		return yellowToken;
+	}
+
+
+
+	public void setYellowToken(boolean yellowToken) {
+		this.yellowToken = yellowToken;
+	}
+	
+
+
+	/**
+	 * selectedIcon getter
+	 * @return
+	 */
+	public JLabel getSelectedLabel() {
+		return this.selectedLabel;
+	}
+
+	/**
+	 * selectedIcon setter
+	 * @param selectedILabel
+	 */
+	public void setSelectedLabel(JLabel selectedILabel) {
+		this.selectedLabel = selectedILabel;
+	}
+
 
 	/**
 	 * Check game board State
@@ -70,11 +82,6 @@ public class GameBoard {
 			System.out.println();
 		}
 	}
-	
-	
-	/**
-	 * Check token direction in game board
-	 */
 	
 
 
