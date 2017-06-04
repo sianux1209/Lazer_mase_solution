@@ -8,7 +8,7 @@ public class ButtonEvent {
 	private GameBoard gameBoard;
 	private Direction direction;
 	private Laser laser;
-	private Solver solver;
+	private PathTracer pathTracer;
 
 	/**
 	 * set init and gameBoard
@@ -20,7 +20,7 @@ public class ButtonEvent {
 		this.init = init;
 		this.gameBoard = gameBoard;
 		this.direction = new Direction();
-		this.solver = new Solver(gameBoard);
+		this.pathTracer = new PathTracer(gameBoard);
 		
 	}
 
@@ -35,13 +35,16 @@ public class ButtonEvent {
 
 		if (jb.getIcon().toString().equals("Start.jpg")) {
 			
-			//gameBoard.checkGameBoard();
+			
 			
 			System.out.println();
 			
 			start();
-			gameBoard.checkRotate();
 			
+			System.out.println();
+			gameBoard.checkGameBoard();
+			System.out.println();
+			gameBoard.checkRotate();
 			System.out.println();
 			
 
@@ -66,6 +69,8 @@ public class ButtonEvent {
 	public void start() {
 		System.out.println("Act the start");
 		
+		gameBoard.setGameClear(false);
+		
 		// trouble shooting
 		// if there is token but the directions is null, initialize it
 		for (int i = 0; i < GameBoard.TABLE_SIZE; i++) {
@@ -80,10 +85,29 @@ public class ButtonEvent {
 			}
 		} // end trouble shooting
 		
+		laserShoot();
 		
-		solver.start();
-
 	} // finish start func
+	
+	
+
+	private void laserShoot() {
+		// TODO Auto-generated method stub
+		
+		final int LIMIT = 100000;
+		int cnt = 0;
+		
+		while(gameBoard.isGameClear() != true ){
+			if (cnt > LIMIT){
+				break;
+			}
+			pathTracer.start();
+			cnt ++;
+		}
+		
+		pathTracer.printResult();
+		
+	}
 
 	/**
 	 * clear the Game board

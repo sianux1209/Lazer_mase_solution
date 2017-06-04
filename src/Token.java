@@ -25,21 +25,29 @@ public class Token {
 	 * @param rotate
 	 */
 	public void red(Laser laser, String rotate) {
-		System.out.println("[*]red (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() +")");
+		System.out.println("[*]red (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
-		if (rotate == "UP") {
-			laser.shootDown();
-		}
+		//Red tokens only work the first time.
+		if (laser.saveLocation.size() == 1) {
 
-		else if (rotate == "RIGHT") {
-			laser.shootLeft();
+			if (rotate == "UP") {
+				laser.shootDown();
+			}
 
-		} else if (rotate == "DOWN") {
-			laser.shootUp();
+			else if (rotate == "RIGHT") {
+				laser.shootLeft();
 
-		} else if (rotate == "LEFT") {
-			laser.shootRight();
+			} else if (rotate == "DOWN") {
+				laser.shootUp();
 
+			} else if (rotate == "LEFT") {
+				laser.shootRight();
+
+			}
+		} // end if
+		
+		else{
+			laser.setCondition(false);
 		}
 
 	} // End red func
@@ -54,7 +62,7 @@ public class Token {
 	 * @param rotate
 	 */
 	public void target(Laser laser, String rotate) {
-		System.out.println("[*]target (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() +")");
+		System.out.println("[*]target (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		HitDirection hitDirection = checkHitDirection(laser);
 
@@ -62,10 +70,12 @@ public class Token {
 
 			if (hitDirection == HitDirection.DOWNtoUP) {
 				laser.setSuccess(true);
+				laser.setCondition(false);
 			} // end inner if
 
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
-				
+				laser.setSuccess(false);
+				laser.setCondition(false);
 			} // end inner if
 
 			else if (hitDirection == HitDirection.UPtoDOWN) {
@@ -86,10 +96,12 @@ public class Token {
 			} // end inner if
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
 				laser.setSuccess(true);
+				laser.setCondition(false);
 
 			} // end inner if
 			else if (hitDirection == HitDirection.UPtoDOWN) {
-				
+				laser.setSuccess(false);
+				laser.setCondition(false);
 
 			} // end inner if
 			else if (hitDirection == HitDirection.RIGHTtoLEFT) {
@@ -110,10 +122,12 @@ public class Token {
 			} // end inner if
 			else if (hitDirection == HitDirection.UPtoDOWN) {
 				laser.setSuccess(true);
+				laser.setCondition(false);
 
 			} // end inner if
 			else if (hitDirection == HitDirection.RIGHTtoLEFT) {
-				
+				laser.setSuccess(false);
+				laser.setCondition(false);
 
 			} // end inner if
 
@@ -121,7 +135,8 @@ public class Token {
 		if (rotate == "LEFT") {
 
 			if (hitDirection == HitDirection.DOWNtoUP) {
-				
+				laser.setSuccess(false);
+				laser.setCondition(false);
 
 			} // end inner if
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
@@ -134,6 +149,7 @@ public class Token {
 			} // end inner if
 			else if (hitDirection == HitDirection.RIGHTtoLEFT) {
 				laser.setSuccess(true);
+				laser.setCondition(false);
 
 			} // end inner if
 
@@ -150,7 +166,7 @@ public class Token {
 	 * @param rotate
 	 */
 	public void blue(Laser laser, String rotate) {
-		System.out.println("[*]blue (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() +")");
+		System.out.println("[*]blue (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		HitDirection hitDirection = checkHitDirection(laser);
 
@@ -246,16 +262,14 @@ public class Token {
 	 * @Param laser
 	 * @param rotate
 	 */
-	public Laser green(Laser laser, String rotate, Solver solver) {
-		System.out.println("[*]green (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() +")");
-		
+	public Laser green(Laser laser, String rotate, PathTracer solver) {
+		System.out.println("[*]green (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
+
 		int x = laser.currentLocation.getX();
 		int y = laser.currentLocation.getY();
 
 		Laser splitLaser = new Laser(gameBoard, x, y);
 		solver.getLaser().add(splitLaser);
-		
-		System.out.println(laser.previousLocation);
 
 		HitDirection hitDirection = checkHitDirection(laser);
 
@@ -368,15 +382,14 @@ public class Token {
 	 * @param rotate
 	 */
 	public void yellow(Laser laser, String rotate) {
-		System.out.println("[*]yellow (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() +")");
-		
+		System.out.println("[*]yellow (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		HitDirection hitDirection = checkHitDirection(laser);
 
 		if (rotate == "UP") {
 
 			if (hitDirection == HitDirection.DOWNtoUP) {
-				
+
 			} // end inner if
 
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
@@ -385,7 +398,7 @@ public class Token {
 			} // end inner if
 
 			else if (hitDirection == HitDirection.UPtoDOWN) {
-				
+
 			} // end inner if
 
 			else if (hitDirection == HitDirection.RIGHTtoLEFT) {
@@ -403,7 +416,6 @@ public class Token {
 
 			} // end inner if
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
-				
 
 			} // end inner if
 			else if (hitDirection == HitDirection.UPtoDOWN) {
@@ -420,7 +432,7 @@ public class Token {
 		if (rotate == "DOWN") {
 
 			if (hitDirection == HitDirection.DOWNtoUP) {
-				
+
 			} // end inner if
 
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
@@ -429,7 +441,7 @@ public class Token {
 			} // end inner if
 
 			else if (hitDirection == HitDirection.UPtoDOWN) {
-				
+
 			} // end inner if
 
 			else if (hitDirection == HitDirection.RIGHTtoLEFT) {
@@ -446,7 +458,6 @@ public class Token {
 
 			} // end inner if
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
-				
 
 			} // end inner if
 			else if (hitDirection == HitDirection.UPtoDOWN) {
@@ -472,19 +483,18 @@ public class Token {
 	 * @param rotate
 	 */
 	public void mirror(Laser laser, String rotate) {
-		System.out.println("[*]mirror (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() +")");
-		
+		System.out.println("[*]mirror (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		HitDirection hitDirection = checkHitDirection(laser);
 
 		if (rotate == "UP") {
 
 			if (hitDirection == HitDirection.DOWNtoUP) {
-				
+
 			} // end inner if
 
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
-				
+
 			} // end inner if
 
 			else if (hitDirection == HitDirection.UPtoDOWN) {
@@ -504,11 +514,9 @@ public class Token {
 
 			} // end inner if
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
-				
 
 			} // end inner if
 			else if (hitDirection == HitDirection.UPtoDOWN) {
-				
 
 			} // end inner if
 			else if (hitDirection == HitDirection.RIGHTtoLEFT) {
@@ -528,11 +536,9 @@ public class Token {
 
 			} // end inner if
 			else if (hitDirection == HitDirection.UPtoDOWN) {
-				
 
 			} // end inner if
 			else if (hitDirection == HitDirection.RIGHTtoLEFT) {
-				
 
 			} // end inner if
 
@@ -540,7 +546,6 @@ public class Token {
 		if (rotate == "LEFT") {
 
 			if (hitDirection == HitDirection.DOWNtoUP) {
-				
 
 			} // end inner if
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
@@ -552,7 +557,6 @@ public class Token {
 
 			} // end inner if
 			else if (hitDirection == HitDirection.RIGHTtoLEFT) {
-				
 
 			} // end inner if
 
@@ -569,7 +573,7 @@ public class Token {
 	 * @param Laser
 	 */
 	public void Black(Laser laser) {
-		System.out.println("[*]black (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() +")");
+		System.out.println("[*]black (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		HitDirection hitDirection = checkHitDirection(laser);
 

@@ -11,27 +11,6 @@ public class Laser {
 	private boolean condition = true; // Check the laser alive
 	private boolean success = false;
 	
-	
-	/**
-	 * Laser Constructor
-	 * 
-	 * @param gameBaord
-	 */
-	public Laser(GameBoard gameBaord) {
-		this.gameBoard = gameBaord;
-		condition = true;
-		saveLocation = new ArrayList<CurrentLocation>();
-
-		JLabel start = findRedToken();
-
-		if (start != null) {
-
-			currentLocation = new CurrentLocation((start.getX() / 100) - 1, (start.getY() / 100) - 1);
-			saveLocation.add(new CurrentLocation((start.getX() / 100) - 1, (start.getY() / 100) - 1));
-		}
-
-	}
-	
 	public Laser(GameBoard gameBaord, int x, int y){
 		this.gameBoard = gameBaord;
 		condition = true;
@@ -60,28 +39,7 @@ public class Laser {
 		this.condition = condition;
 	}
 
-	/**
-	 * Look for red tokens at startup.
-	 * 
-	 * @return
-	 */
-	public JLabel findRedToken() {
 
-		for (int i = 0; i < GameBoard.TABLE_SIZE; i++) {
-			for (int j = 0; j < GameBoard.TABLE_SIZE; j++) {
-
-				if (gameBoard.gameBoard[i][j].getIcon().toString() == "Red.jpg"
-						|| gameBoard.gameBoard[i][j].getIcon().toString() == "RedR.jpg") {
-					return gameBoard.gameBoard[i][j];
-				}
-
-			} // End inner for
-		} // End outer for
-
-		System.out.println("[*]Not found Red token!!");
-		return null;
-
-	} // End findRedToken func
 
 	/**
 	 * The current location class of the laser
@@ -140,10 +98,10 @@ public class Laser {
 				return;
 
 			previousLocation = (CurrentLocation) currentLocation.clone();
-
+			
 			int x = currentLocation.getX();
 			int y = currentLocation.getY() - 1;
-
+			
 			while (y >= 0) {
 
 				if (gameBoard.gameBoard[y][x].getIcon().toString() != "White.jpg") {
@@ -188,11 +146,14 @@ public class Laser {
 
 			int x = currentLocation.getX();
 			int y = currentLocation.getY() + 1;
+			
 
 			while (y < GameBoard.TABLE_SIZE) {
 
 				if (gameBoard.gameBoard[y][x].getIcon().toString() != "White.jpg") {
 					currentLocation.setXY(x, y);
+					
+					
 					
 					if(TokenDuplicateCheck()){
 						saveLocation.add((CurrentLocation) currentLocation.clone());
@@ -230,6 +191,7 @@ public class Laser {
 
 			int x = currentLocation.getX() - 1;
 			int y = currentLocation.getY();
+			
 
 			while (x >= 0) {
 
@@ -271,7 +233,7 @@ public class Laser {
 
 			int x = currentLocation.getX() + 1; //
 			int y = currentLocation.getY();
-
+			
 			while (x < GameBoard.TABLE_SIZE) {
 
 				// System.out.println("[4] " + currentLocation);

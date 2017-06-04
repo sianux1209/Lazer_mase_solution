@@ -6,6 +6,7 @@ public class GameBoard {
 	private JLabel selectedLabel;	// user selected token
 	public static final int TABLE_SIZE = 5;
 	private boolean yellowToken = true;
+	private boolean gameClear = false;
 	
 	/**
 	 * set default gameboard conf
@@ -28,6 +29,15 @@ public class GameBoard {
 		} // finish "for" control
 				
 	} // finish GameBoard constructor
+	
+	public boolean isGameClear() {
+		return gameClear;
+	}
+	
+	
+	public void setGameClear(boolean gameClear) {
+		this.gameClear = gameClear;
+	}
 	
 	
 	public boolean isYellowToken() {
@@ -83,7 +93,4 @@ public class GameBoard {
 		}
 	}
 	
-
-
 }
-//

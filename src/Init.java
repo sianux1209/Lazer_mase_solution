@@ -214,7 +214,7 @@ public class Init extends JFrame implements MouseListener {
 		JLabel userBlueR = new JLabel(new ImageIcon("BlueR.jpg"));
 		JLabel userYellowR = new JLabel(new ImageIcon("YellowR.jpg"));
 
-		numberOfTargets = new JLabel("sadadsa");
+		numberOfTargets = new JLabel("0");
 		numberOfTargets.setHorizontalAlignment(JLabel.CENTER);
 		numberOfTargets.setFont(new Font("Arial", Font.PLAIN, 40));
 		

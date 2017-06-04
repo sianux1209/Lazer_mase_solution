@@ -1,7 +1,11 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
-public class Solver {
+import javax.swing.JLabel;
+
+public class PathTracer {
 
 	private final static String randomRotate[] = { "UP", "RIGHT", "DOWN", "LEFT" };
 
@@ -10,7 +14,7 @@ public class Solver {
 	Random random = new Random();
 	private ArrayList<Laser> laser = new ArrayList<Laser>();
 
-	public Solver(GameBoard gameBoard) {
+	public PathTracer(GameBoard gameBoard) {
 		this.gameBoard = gameBoard;
 	}
 
@@ -22,13 +26,15 @@ public class Solver {
 		// TODO Auto-generated method stub
 
 		laser.clear(); // Delete previous record
-		laser.add(new Laser(gameBoard)); // set default laser
 		token = new Token(gameBoard);
-
+		gameBoard.setGameClear(false);
+		findRedToken();
 		checkYellowToken();
 
-		if (laser.get(0).currentLocation == null)
+		if (laser.isEmpty() == true)
 			return;
+
+		setRandomTokenDirection();
 
 		String tokenName = "";
 		String rotate = "";
@@ -48,10 +54,10 @@ public class Solver {
 			laserNumber = 0;
 			laserCount = laser.size();
 
-			if (laser.get(laserNumber).isCondition() == true) {
-
 				// When the laser is split, both lasers operate.
 				while (laserNumber < laserCount) {
+					
+					if (laser.get(laserNumber).isCondition() == true) {
 
 					x = laser.get(laserNumber).currentLocation.getX();
 					y = laser.get(laserNumber).currentLocation.getY();
@@ -74,7 +80,7 @@ public class Solver {
 
 						// Chack the GameClearFlag;
 						if (laser.get(laserNumber).isSuccess() == true) {
-							System.out.println("[*]Found solve!!");
+							System.out.println("[*]Found target!!");
 							laser.get(laserNumber).setCondition(false);
 							// printResult();
 							// return;
@@ -106,32 +112,72 @@ public class Solver {
 					} // End black token
 
 					else if (tokenName == "RedR.jpg") {
-						rotate = getRandomRotate();
 						token.red(laser.get(laserNumber), rotate);
+					} // End RedR token
+
+					else if (tokenName == "TargetR.jpg") {
+						token.target(laser.get(laserNumber), rotate);
+					} // End targetR token
+
+					else if (tokenName == "MirrorR.jpg") {
+						token.mirror(laser.get(laserNumber), rotate);
+					} // End mirrorR token
+
+					else if (tokenName == "GreenR.jpg") {
+						token.green(laser.get(laserNumber), rotate, this);
+					} // End greenR token
+
+					else if (tokenName == "BlueR.jpg") {
+						token.blue(laser.get(laserNumber), rotate);
+
+					} // End blueR token
+
+					else if (tokenName == "YellowR.jpg") {
+						token.yellow(laser.get(laserNumber), rotate);
 					}
 
 					/*
-					// If laser is off, quit
-					if (laser.get(laserNumber).isCondition() == false) {
-						System.out.println("[*]Not found solve!!");
-						// printResult();
-						// return;
-					}
-					*/
-
+					 * // If laser is off, quit if
+					 * (laser.get(laserNumber).isCondition() == false) {
+					 * System.out.println("[*]Not found solve!!"); //
+					 * printResult(); // return; }
+					 */
+					
+					
+					} // End laser condition check (if)
 					laserNumber++;
-				}// end inner while
+				} // end inner while
 
-				
-			} // End laser condition check (if) 
+			
 
+			checkGameClear();
+			if (gameBoard.isGameClear() == true) {
+				break;
+			}
 			count++;
 		} // End outer while
 
-		// CheckSolved();
-		printResult();
-
 	} // end start func
+
+	private void setRandomTokenDirection() {
+		// TODO Auto-generated method stub
+
+		List<String> randomList = Arrays.asList(
+				new String[] { "RedR.jpg", "TargetR.jpg", "MirrorR.jpg", "GreenR.jpg", "BlueR.jpg", "YellowR.jpg" });
+
+		for (int x = 0; x < GameBoard.TABLE_SIZE; x++) {
+			for (int y = 0; y < GameBoard.TABLE_SIZE; y++) {
+
+				String tokenName = gameBoard.gameBoard[y][x].getIcon().toString();
+
+				if (randomList.contains(tokenName)) {
+					gameBoard.gameBoard[y][x].setName(getRandomRotate());
+				} // end if
+			} // end inner for
+
+		} // end outer for
+
+	}// end setRandomTokenDirection
 
 	private String getRandomRotate() {
 		// TODO Auto-generated method stub
@@ -159,32 +205,32 @@ public class Solver {
 
 	} // End checkYellowToken func
 
-	private boolean CheckSolved() {
-		// TODO Auto-generated method stub
+	private void checkGameClear() {
 
 		int laserNumber = 0;
 		int laserCount = laser.size();
 
-		// When the laser is split, both lasers operate.
 		while (laserNumber < laserCount) {
 
-			if (laser.get(laserNumber).isSuccess() != true) {
-				System.out.println("[*]Mission Fail.....");
-				return false;
-
+			// If one of the lasers fails, it fails.
+			if (laser.get(laserNumber).isSuccess() == false) {
+				return;
 			}
-		}
 
-		System.out.println("[*]Mission complete!!");
-		return true;
+			laserNumber++;
+		} // end while
 
+		gameBoard.setGameClear(true);
 	}
 
 	public void printResult() {
 		int laserNumber = 0;
 		int laserCount = laser.size();
 
+		System.out.println();
 		System.out.println("[*]CheckPoint(Yellow token) : " + gameBoard.isYellowToken());
+
+		System.out.println("[*]GameClear : " + gameBoard.isGameClear());
 
 		while (laserNumber < laserCount) {
 
@@ -207,10 +253,43 @@ public class Solver {
 
 			} // End inner while
 
+			//System.out.println("[" + laserNumber + "] :" + laser.get(laserNumber).isCondition());
 			laserNumber++;
 
 		} // End outer while
 
-	}
+	} // End printResult func
 
-}
+	/**
+	 * Look for red tokens at startup.
+	 * 
+	 * @return
+	 */
+	public void findRedToken() {
+
+		int x;
+		int y;
+
+		for (int i = 0; i < GameBoard.TABLE_SIZE; i++) {
+			for (int j = 0; j < GameBoard.TABLE_SIZE; j++) {
+
+				if (gameBoard.gameBoard[i][j].getIcon().toString() == "Red.jpg"
+						|| gameBoard.gameBoard[i][j].getIcon().toString() == "RedR.jpg") {
+
+					x = (gameBoard.gameBoard[i][j].getX() / 100) - 1;
+					y = (gameBoard.gameBoard[i][j].getY() / 100) - 1;
+
+					laser.add(new Laser(gameBoard, x, y));
+
+				} // End if
+
+			} // End inner for
+		} // End outer for
+
+		if (laser.isEmpty()) {
+			System.out.println("[*]Not found Red token!!");
+		}
+
+	} // End findRedToken func
+
+} // End class
