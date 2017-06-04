@@ -1,12 +1,15 @@
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class GameBoard {
 	
 	public JLabel[][] gameBoard;
+	public JTextField[] userInput;
 	private JLabel selectedLabel;	// user selected token
 	public static final int TABLE_SIZE = 5;
 	private boolean yellowToken = true;
 	private boolean gameClear = false;
+	JLabel numberOfTargets;
 	
 	/**
 	 * set default gameboard conf
@@ -29,6 +32,16 @@ public class GameBoard {
 		} // finish "for" control
 				
 	} // finish GameBoard constructor
+	
+	public void setUserInput(JTextField... userInput){
+		
+		final int fieldCount = 6;
+		this.userInput = new JTextField[fieldCount];
+		
+		for(int i=0; i< fieldCount; i++){
+			this.userInput[i] = userInput[i];
+		}
+	}
 	
 	public boolean isGameClear() {
 		return gameClear;
@@ -73,6 +86,7 @@ public class GameBoard {
 	 * Check game board State
 	 */
 	public void checkGameBoard(){
+		System.out.println();
 		
 		for(JLabel[] x : gameBoard){
 			for(JLabel y : x){
@@ -81,16 +95,31 @@ public class GameBoard {
 			System.out.println();
 		} // finish for control
 		
+		System.out.println();
+		
 	} // finish check GameBoard func
 
 	public void checkRotate() {
 		// TODO Auto-generated method stub
+		
+		System.out.println();
 		for(int i=0; i<TABLE_SIZE;i++){
 			for(int j=0; j<TABLE_SIZE;j++){
 				System.out.print(gameBoard[i][j].getName() + "\t");
 			}
 			System.out.println();
 		}
+		
+		System.out.println();
+	}
+
+	public void setNumberOfTargets(JLabel numberOfTargets) {
+		// TODO Auto-generated method stub
+		this.numberOfTargets = numberOfTargets;
+	}
+	
+	public int getNumberOfTargets(){
+		return Integer.parseInt(numberOfTargets.getText());
 	}
 	
 }

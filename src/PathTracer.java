@@ -42,7 +42,7 @@ public class PathTracer {
 		int x;
 		int y;
 
-		final int LIMIT = 50; // limit the laser shot
+		int LIMIT = getTokenCount(); // limit the laser shot
 		int count = 0;
 
 		int laserNumber;
@@ -54,10 +54,10 @@ public class PathTracer {
 			laserNumber = 0;
 			laserCount = laser.size();
 
-				// When the laser is split, both lasers operate.
-				while (laserNumber < laserCount) {
-					
-					if (laser.get(laserNumber).isCondition() == true) {
+			// When the laser is split, both lasers operate.
+			while (laserNumber < laserCount) {
+
+				if (laser.get(laserNumber).isCondition() == true) {
 
 					x = laser.get(laserNumber).currentLocation.getX();
 					y = laser.get(laserNumber).currentLocation.getY();
@@ -142,13 +142,10 @@ public class PathTracer {
 					 * System.out.println("[*]Not found solve!!"); //
 					 * printResult(); // return; }
 					 */
-					
-					
-					} // End laser condition check (if)
-					laserNumber++;
-				} // end inner while
 
-			
+				} // End laser condition check (if)
+				laserNumber++;
+			} // end inner while
 
 			checkGameClear();
 			if (gameBoard.isGameClear() == true) {
@@ -158,6 +155,20 @@ public class PathTracer {
 		} // End outer while
 
 	} // end start func
+
+	private int getTokenCount() {
+		// TODO Auto-generated method stub
+
+		int cnt = 0;
+		for (JLabel[] y : gameBoard.gameBoard) {
+			for (JLabel x : y) {
+				if (!x.getIcon().toString().equals("White.jpg"))
+					cnt++;
+
+			}
+		}
+		return cnt;
+	}
 
 	private void setRandomTokenDirection() {
 		// TODO Auto-generated method stub
@@ -210,9 +221,17 @@ public class PathTracer {
 		int laserNumber = 0;
 		int laserCount = laser.size();
 
+		if (laser.size() != gameBoard.getNumberOfTargets() + Integer.parseInt(gameBoard.userInput[1].getText())) {
+			return;
+		}
+
+		// Check pass yellow token
+		if (gameBoard.isYellowToken() == false)
+			return;
+
+		// If one of the lasers fails, it fails.
 		while (laserNumber < laserCount) {
 
-			// If one of the lasers fails, it fails.
 			if (laser.get(laserNumber).isSuccess() == false) {
 				return;
 			}
@@ -253,7 +272,8 @@ public class PathTracer {
 
 			} // End inner while
 
-			//System.out.println("[" + laserNumber + "] :" + laser.get(laserNumber).isCondition());
+			// System.out.println("[" + laserNumber + "] :" +
+			// laser.get(laserNumber).isCondition());
 			laserNumber++;
 
 		} // End outer while
@@ -288,6 +308,7 @@ public class PathTracer {
 
 		if (laser.isEmpty()) {
 			System.out.println("[*]Not found Red token!!");
+		
 		}
 
 	} // End findRedToken func

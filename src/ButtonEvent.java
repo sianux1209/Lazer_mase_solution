@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -9,6 +12,7 @@ public class ButtonEvent {
 	private Direction direction;
 	private Laser laser;
 	private PathTracer pathTracer;
+	private TokenSetter tokenSetter;
 
 	/**
 	 * set init and gameBoard
@@ -22,6 +26,7 @@ public class ButtonEvent {
 		this.direction = new Direction();
 		this.pathTracer = new PathTracer(gameBoard);
 		
+		
 	}
 
 	/**
@@ -29,23 +34,14 @@ public class ButtonEvent {
 	 * 
 	 * @param JButton
 	 */
-	public void action(JButton jb, Init init, GameBoard gameBoard) {
+	public void action(JButton jb, GameBoard gameBoard) {
 		
-		
-
 		if (jb.getIcon().toString().equals("Start.jpg")) {
-			
-			
-			
-			System.out.println();
-			
+		
 			start();
 			
-			System.out.println();
 			gameBoard.checkGameBoard();
-			System.out.println();
 			gameBoard.checkRotate();
-			System.out.println();
 			
 
 		} else if (jb.getIcon().toString().equals("Clear.jpg")) {
@@ -70,6 +66,7 @@ public class ButtonEvent {
 		System.out.println("Act the start");
 		
 		gameBoard.setGameClear(false);
+		this.tokenSetter = new TokenSetter(gameBoard);
 		
 		// trouble shooting
 		// if there is token but the directions is null, initialize it
@@ -85,29 +82,32 @@ public class ButtonEvent {
 			}
 		} // end trouble shooting
 		
-		laserShoot();
 		
-	} // finish start func
-	
-	
-
-	private void laserShoot() {
-		// TODO Auto-generated method stub
 		
-		final int LIMIT = 100000;
+		final int LIMIT = 10000000;
 		int cnt = 0;
+		boolean state = true;
 		
-		while(gameBoard.isGameClear() != true ){
-			if (cnt > LIMIT){
+		while(gameBoard.isGameClear() == false){
+			
+			if (cnt > LIMIT || state == false ){
 				break;
 			}
+
+			state = tokenSetter.setUserToken();
 			pathTracer.start();
-			cnt ++;
+			
+			cnt++;
+			
 		}
 		
 		pathTracer.printResult();
+			
 		
-	}
+		
+		
+	} // finish start func
+	
 
 	/**
 	 * clear the Game board
@@ -119,6 +119,7 @@ public class ButtonEvent {
 			for (int j = 0; j < GameBoard.TABLE_SIZE; j++) {
 				gameBoard.gameBoard[i][j].setIcon(new ImageIcon("White.jpg"));
 				gameBoard.gameBoard[i][j].setName(null);
+				gameBoard.gameBoard[i][j].setBorder(null);
 			} // inner for
 		} // end outer for
 		
@@ -147,7 +148,7 @@ public class ButtonEvent {
 	public void right() {
 		System.out.println("Act the rightt");
 		direction.turnRight(gameBoard);
-
+		
 	}
 }
 //

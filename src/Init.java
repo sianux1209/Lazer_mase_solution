@@ -22,7 +22,6 @@ public class Init extends JFrame implements MouseListener {
 	public ButtonEvent buttonEvent;
 	public GameBoard gameBoard;
 	
-	JLabel numberOfTargets;
 	
 	JLabel red;
 	JLabel redR;
@@ -38,6 +37,14 @@ public class Init extends JFrame implements MouseListener {
 	JLabel yellowR;
 	JLabel black;
 	JLabel token;
+	
+	JLabel numberOfTargets;
+	JTextField inputRedR;
+	JTextField inputTargetR;
+	JTextField inputMirrorR;
+	JTextField inputGreenR;
+	JTextField inputBlueR;
+	JTextField inputYellowR;
 
 	/**
 	 * Create the frame.
@@ -47,6 +54,7 @@ public class Init extends JFrame implements MouseListener {
 		buttonEvent = new ButtonEvent(this, gameBoard);
 
 	}
+	
 	// end maze func
 	
 	/**
@@ -64,7 +72,7 @@ public class Init extends JFrame implements MouseListener {
 		// Button type
 		if (jc.getUIClassID().equals("ButtonUI")) {;
 			JButton jb = (JButton)jc;
-			buttonEvent.action(jb, this, gameBoard);
+			buttonEvent.action(jb, gameBoard);
 			
 		}
 		// Label UI
@@ -471,6 +479,9 @@ public class Init extends JFrame implements MouseListener {
 		
 		gameBoard = new GameBoard(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, 
 								p15, p16, p17, p18, p19, p20, p21, p22, p23, p24, p25);
+		gameBoard.setUserInput(inputRedR, inputTargetR, inputMirrorR, inputGreenR, inputBlueR, inputYellowR);
+		
+		gameBoard.setNumberOfTargets(numberOfTargets);
 		
 		gameBoard.setSelectedLabel(p1);	// selectedIcon init
 		
