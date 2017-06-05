@@ -1,6 +1,7 @@
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.TransferHandler;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class Init extends JFrame implements MouseListener {
@@ -50,6 +50,7 @@ public class Init extends JFrame implements MouseListener {
 	 * Create the frame.
 	 */
 	public Init() {
+		
 		init();		
 		buttonEvent = new ButtonEvent(this, gameBoard);
 
@@ -108,6 +109,9 @@ public class Init extends JFrame implements MouseListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {}
 	
+	
+	
+	
 	/**
 	 * Check the number of targets
 	 */
@@ -124,7 +128,6 @@ public class Init extends JFrame implements MouseListener {
 		} // end outer for
 		
 		this.numberOfTargets.setText(targetCount.toString());
-		
 		
 	} // end checkTargets func
 	
@@ -151,19 +154,14 @@ public class Init extends JFrame implements MouseListener {
 		token.setIcon(new ImageIcon("Token.jpg"));
 		
 	}
-	
 
 	/**
 	 * init func
 	 */
 	public void init() {
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		
+		JPanel jp = new JPanel(null);
 
 		JLabel p1 = new JLabel(new ImageIcon("White.jpg"));
 		JLabel p2 = new JLabel(new ImageIcon("White.jpg"));
@@ -410,70 +408,70 @@ public class Init extends JFrame implements MouseListener {
 		yellowR.setTransferHandler(new TransferHandler("icon"));
 		black.setTransferHandler(new TransferHandler("icon"));
 
-		getContentPane().add(p1);
-		getContentPane().add(p2);
-		getContentPane().add(p3);
-		getContentPane().add(p4);
-		getContentPane().add(p5);
-		getContentPane().add(p6);
-		getContentPane().add(p7);
-		getContentPane().add(p8);
-		getContentPane().add(p9);
-		getContentPane().add(p10);
-		getContentPane().add(p11);
-		getContentPane().add(p12);
-		getContentPane().add(p13);
-		getContentPane().add(p14);
-		getContentPane().add(p15);
-		getContentPane().add(p16);
-		getContentPane().add(p17);
-		getContentPane().add(p18);
-		getContentPane().add(p19);
-		getContentPane().add(p20);
-		getContentPane().add(p21);
-		getContentPane().add(p22);
-		getContentPane().add(p23);
-		getContentPane().add(p24);
-		getContentPane().add(p25);
+		jp.add(p1);
+		jp.add(p2);
+		jp.add(p3);
+		jp.add(p4);
+		jp.add(p5);
+		jp.add(p6);
+		jp.add(p7);
+		jp.add(p8);
+		jp.add(p9);
+		jp.add(p10);
+		jp.add(p11);
+		jp.add(p12);
+		jp.add(p13);
+		jp.add(p14);
+		jp.add(p15);
+		jp.add(p16);
+		jp.add(p17);
+		jp.add(p18);
+		jp.add(p19);
+		jp.add(p20);
+		jp.add(p21);
+		jp.add(p22);
+		jp.add(p23);
+		jp.add(p24);
+		jp.add(p25);
 
-		getContentPane().add(red);
-		getContentPane().add(redR);
-		getContentPane().add(target);
-		getContentPane().add(targetR);
-		getContentPane().add(mirror);
-		getContentPane().add(mirrorR);
-		getContentPane().add(green);
-		getContentPane().add(greenR);
-		getContentPane().add(blue);
-		getContentPane().add(blueR);
-		getContentPane().add(yellow);
-		getContentPane().add(yellowR);
-		getContentPane().add(black);
-		getContentPane().add(token);
+		jp.add(red);
+		jp.add(redR);
+		jp.add(target);
+		jp.add(targetR);
+		jp.add(mirror);
+		jp.add(mirrorR);
+		jp.add(green);
+		jp.add(greenR);
+		jp.add(blue);
+		jp.add(blueR);
+		jp.add(yellow);
+		jp.add(yellowR);
+		jp.add(black);
+		jp.add(token);
 
-		getContentPane().add(start);
-		getContentPane().add(clear);
-		getContentPane().add(laser);
+		jp.add(start);
+		jp.add(clear);
+		jp.add(laser);
 
-		getContentPane().add(left);
-		getContentPane().add(right);
+		jp.add(left);
+		jp.add(right);
 
-		getContentPane().add(goal);
+		jp.add(goal);
 
-		getContentPane().add(userRedR);
-		getContentPane().add(userTargetR);
-		getContentPane().add(userMirrorR);
-		getContentPane().add(userGreenR);
-		getContentPane().add(userBlueR);
-		getContentPane().add(userYellowR);
+		jp.add(userRedR);
+		jp.add(userTargetR);
+		jp.add(userMirrorR);
+		jp.add(userGreenR);
+		jp.add(userBlueR);
+		jp.add(userYellowR);
 
-		getContentPane().add(numberOfTargets);
-		getContentPane().add(inputRedR);
-		getContentPane().add(inputTargetR);
-		getContentPane().add(inputMirrorR);
-		getContentPane().add(inputGreenR);
-		getContentPane().add(inputBlueR);
-		getContentPane().add(inputYellowR);
+		jp.add(numberOfTargets);
+		jp.add(inputRedR);
+		jp.add(inputTargetR);
+		jp.add(inputMirrorR);
+		jp.add(inputGreenR);
+		jp.add(inputBlueR);
+		jp.add(inputYellowR);
 		
 		/************ set Gameboard ************/
 		
@@ -486,14 +484,25 @@ public class Init extends JFrame implements MouseListener {
 		gameBoard.setSelectedLabel(p1);	// selectedIcon init
 		
 		/***************************************/
-
-		getContentPane().setLayout(null);
+		
+		setContentPane(jp);
 		setSize(1110, 943);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+	
 	}
 	// End init func
+	
+	public boolean isStringInt(String s) {
+		try {
+			Integer.parseInt(s);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+	
 
 }
 

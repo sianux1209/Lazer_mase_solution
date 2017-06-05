@@ -221,7 +221,7 @@ public class PathTracer {
 		int laserNumber = 0;
 		int laserCount = laser.size();
 
-		if (laser.size() != gameBoard.getNumberOfTargets() + Integer.parseInt(gameBoard.userInput[1].getText())) {
+		if (laser.size() != Integer.parseInt(gameBoard.getNumberOfTargets().getText())) {
 			return;
 		}
 
@@ -308,7 +308,7 @@ public class PathTracer {
 
 		if (laser.isEmpty()) {
 			System.out.println("[*]Not found Red token!!");
-		
+
 		}
 
 	} // End findRedToken func

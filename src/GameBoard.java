@@ -113,13 +113,15 @@ public class GameBoard {
 		System.out.println();
 	}
 
+	public JLabel getNumberOfTargets(){
+		return numberOfTargets;
+	}
+
 	public void setNumberOfTargets(JLabel numberOfTargets) {
 		// TODO Auto-generated method stub
+		
 		this.numberOfTargets = numberOfTargets;
-	}
-	
-	public int getNumberOfTargets(){
-		return Integer.parseInt(numberOfTargets.getText());
+		
 	}
 	
 }

@@ -25,7 +25,7 @@ public class Token {
 	 * @param rotate
 	 */
 	public void red(Laser laser, String rotate) {
-		System.out.println("[*]red (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
+		//System.out.println("[*]red (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		//Red tokens only work the first time.
 		if (laser.saveLocation.size() == 1) {
@@ -62,7 +62,7 @@ public class Token {
 	 * @param rotate
 	 */
 	public void target(Laser laser, String rotate) {
-		System.out.println("[*]target (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
+		//System.out.println("[*]target (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		HitDirection hitDirection = checkHitDirection(laser);
 
@@ -166,7 +166,7 @@ public class Token {
 	 * @param rotate
 	 */
 	public void blue(Laser laser, String rotate) {
-		System.out.println("[*]blue (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
+		//System.out.println("[*]blue (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		HitDirection hitDirection = checkHitDirection(laser);
 
@@ -263,7 +263,7 @@ public class Token {
 	 * @param rotate
 	 */
 	public Laser green(Laser laser, String rotate, PathTracer solver) {
-		System.out.println("[*]green (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
+		//System.out.println("[*]green (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		int x = laser.currentLocation.getX();
 		int y = laser.currentLocation.getY();
@@ -382,7 +382,7 @@ public class Token {
 	 * @param rotate
 	 */
 	public void yellow(Laser laser, String rotate) {
-		System.out.println("[*]yellow (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
+		//System.out.println("[*]yellow (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		HitDirection hitDirection = checkHitDirection(laser);
 
@@ -483,7 +483,7 @@ public class Token {
 	 * @param rotate
 	 */
 	public void mirror(Laser laser, String rotate) {
-		System.out.println("[*]mirror (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
+		//System.out.println("[*]mirror (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		HitDirection hitDirection = checkHitDirection(laser);
 

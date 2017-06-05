@@ -1,18 +1,17 @@
+import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
 public class ButtonEvent {
 
 	private Init init;
 	private GameBoard gameBoard;
 	private Direction direction;
-	private Laser laser;
 	private PathTracer pathTracer;
 	private TokenSetter tokenSetter;
+	private LaserDrawer[] laserDrawer;;
 
 	/**
 	 * set init and gameBoard
@@ -68,6 +67,8 @@ public class ButtonEvent {
 		gameBoard.setGameClear(false);
 		this.tokenSetter = new TokenSetter(gameBoard);
 		
+		
+		
 		// trouble shooting
 		// if there is token but the directions is null, initialize it
 		for (int i = 0; i < GameBoard.TABLE_SIZE; i++) {
@@ -88,6 +89,9 @@ public class ButtonEvent {
 		int cnt = 0;
 		boolean state = true;
 		
+		state = tokenSetter.setUserToken();
+		init.checkTargets();
+				
 		while(gameBoard.isGameClear() == false){
 			
 			if (cnt > LIMIT || state == false ){
@@ -101,11 +105,9 @@ public class ButtonEvent {
 			
 		}
 		
+		
 		pathTracer.printResult();
-			
-		
-		
-		
+
 	} // finish start func
 	
 
@@ -130,9 +132,14 @@ public class ButtonEvent {
 	 */
 	public void laser() {
 		System.out.println("Act the laser");
+		
+
+		new LaserDrawer(pathTracer.getLaser());
+		
 
 	} // finish laser func
 
+	
 	/**
 	 * Rotate the token to the left
 	 */

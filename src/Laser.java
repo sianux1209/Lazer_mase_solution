@@ -91,7 +91,7 @@ public class Laser {
 	 * shoot the laser upwards
 	 */
 	public void shootUp() {
-		System.out.println("[*]shoot Up (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
+		//System.out.println("[*]shoot Up (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
 
 		try {
 			if (currentLocation == null)
@@ -121,7 +121,7 @@ public class Laser {
 			currentLocation.setXY(x, y + 1);
 			saveLocation.add((CurrentLocation) currentLocation.clone());
 
-			System.out.println("[*]Line over! (Shoot up)");
+			//System.out.println("[*]Line over! (Shoot up)");
 			condition = false;
 
 		} catch (CloneNotSupportedException e) {
@@ -135,7 +135,7 @@ public class Laser {
 	 * shoot the laser down
 	 */
 	public void shootDown() {
-		System.out.println("[*]shoot Down (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
+		//System.out.println("[*]shoot Down (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
 
 		try {
 
@@ -168,7 +168,7 @@ public class Laser {
 			currentLocation.setXY(x, y - 1);
 			saveLocation.add((CurrentLocation) currentLocation.clone());
 
-			System.out.println("[*]Line over! (Shoot down)");
+			//System.out.println("[*]Line over! (Shoot down)");
 			condition = false;
 
 		} catch (CloneNotSupportedException e) {
@@ -180,7 +180,7 @@ public class Laser {
 	 * Shoot the laser left
 	 */
 	public void shootLeft() {
-		System.out.println("[*]shoot Left (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
+		//System.out.println("[*]shoot Left (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
 
 		try {
 
@@ -214,7 +214,7 @@ public class Laser {
 			currentLocation.setXY(x + 1, y);
 			saveLocation.add((CurrentLocation) currentLocation.clone());
 
-			System.out.println("[*]Line over! (Shoot left)");
+			//System.out.println("[*]Line over! (Shoot left)");
 			condition = false;
 
 		} catch (CloneNotSupportedException e) {
@@ -223,7 +223,7 @@ public class Laser {
 	} // End shootLeft func
 
 	public void shootRight() {
-		System.out.println("[*]shoot Right (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
+		//System.out.println("[*]shoot Right (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
 
 		try {
 			if (currentLocation == null)
@@ -256,7 +256,7 @@ public class Laser {
 			currentLocation.setXY(x - 1, y);
 			saveLocation.add((CurrentLocation) currentLocation.clone());
 
-			System.out.println("[*]Line over! (Shoot right)");
+			//System.out.println("[*]Line over! (Shoot right)");
 			condition = false;
 
 		} catch (CloneNotSupportedException e) {

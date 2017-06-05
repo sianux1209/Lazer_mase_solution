@@ -1,5 +1,3 @@
-import javax.swing.JLabel;
-
 /**
  * Token direction configuration
  *
