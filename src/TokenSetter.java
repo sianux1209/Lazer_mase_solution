@@ -7,6 +7,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
+/**
+ * 사용자가 입력창에 입력한 토큰의 수만큼의 토큰을 게임보드에 배치한다.
+ */
 public class TokenSetter {
 
 	GameBoard gameBoard;
@@ -21,11 +24,15 @@ public class TokenSetter {
 	private int yellow = 0;
 	private int totalToken;
 
+	/**
+	 * 생성자
+	 * @param gameBoard
+	 */
 	public TokenSetter(GameBoard gameBoard) {
 		// TODO Auto-generated constructor stub
 		this.gameBoard = gameBoard;
 		emptySpace = new ArrayList<JLabel>();
-		checkEmptyplace();
+		checkEmptyplace();	// 빈 공간을 검사한다;
 	}
 	
 	public int getTotalToken() {
@@ -35,28 +42,33 @@ public class TokenSetter {
 	public void setTotalToken(int totalToken) {
 		this.totalToken = totalToken;
 	}
-
-
-
+	
+	/*
+	 * 토큰을 배치한다.
+	 */
 	public boolean setUserToken() {
 		// TODO Auto-generated method stub
 		
 		setTotalToken(red + target + mirror + green + blue + yellow);
 		
+		// 남은 공간이 입력한 토큰의 수보다 적으면 실패한 것으로 간주한다.
 		if(emptySpace.size() < getTotalToken()){
 			System.out.println("[*]The token entered is more than the remaining space");
 			return false;
 		}
 		
-		getUserInput();
-		resetToken();
-		setToken();
+		getUserInput();	// 사용자가 입력한 토큰의 수를 읽는다.
+		resetToken(); // 자동으로 배치된 토큰을 회수한다. (배치/재배치를 반복하기 위해서)
+		setToken(); //  토큰을 자동으로 배치한다.
 		
 		return true;
 		
 
 	}
 
+	/**
+	 * 토큰을 회수한다.
+	 */
 	private void resetToken() {
 		// TODO Auto-generated method stub
 		
@@ -67,6 +79,9 @@ public class TokenSetter {
 		
 	}
 
+	/**
+	 * 토큰을 배치한다.
+	 */
 	private void setToken() {
 		// TODO Auto-generated method stub
 		
@@ -120,16 +135,19 @@ public class TokenSetter {
 		
 	}
 	
+	/**
+	 * 사용자 입력을 읽는다.
+	 */
 	private void getUserInput() {
 		
 		for (int i=0; i<gameBoard.userInput.length; i++) {
 			
-			// Check white space
+			// 만약 입력창에 입력된 값이 없으면 0으로 초기화한다.
 			if(gameBoard.userInput[i].getText().equals("")){
 					gameBoard.userInput[i].setText("0");
 			}
 			
-			// If the input character is not a number, enter 0.
+			// 만약 입력창의 값이 숫자가 아니면 0으로 초기화한다.
 			if(!isStringInt(gameBoard.userInput[i].getText())){
 				
 				System.out.println(gameBoard.userInput[i].getText());
@@ -153,7 +171,12 @@ public class TokenSetter {
 	}
 	
 
-
+	/**
+	 * 문자가 숫자로 변환이 가능한 문자인지 확이한다.
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public boolean isStringInt(String s) {
 		try {
 			Integer.parseInt(s);
@@ -163,6 +186,9 @@ public class TokenSetter {
 		}
 	}
 
+	/**
+	 * 빈 공간을 검색한다.
+	 */
 	public void checkEmptyplace() {
 
 		for (int y = 0; y < GameBoard.TABLE_SIZE; y++) {
@@ -175,8 +201,8 @@ public class TokenSetter {
 			} // End inner if
 		} // End outer if
 
-	}
+	} //End checkEmptyPlace func
 
 
 
-}
+}	//End class

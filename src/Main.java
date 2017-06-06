@@ -14,11 +14,9 @@ public class Main {
 					Init frame = new Init();
 					frame.setVisible(true);
 					frame.setResizable(false);
-					// CircleMove ex = new CircleMove();
 
 
 				} catch (Exception e) {
-					e.printStackTrace();
 				}
 			}
 		});

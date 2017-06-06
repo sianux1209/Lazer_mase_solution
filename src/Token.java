@@ -1,5 +1,8 @@
 import javax.swing.JLabel;
 
+/**
+ * 토큰별 기능을 정의한다.
+ */
 public class Token {
 
 	public GameBoard gameBoard;
@@ -10,6 +13,7 @@ public class Token {
 
 	}
 
+	//어느쪽에서 레이저를 발사했는지 판단할 때 사용한다.
 	public enum HitDirection {
 		UPtoDOWN, RIGHTtoLEFT, DOWNtoUP, LEFTtoRIGHT
 	}

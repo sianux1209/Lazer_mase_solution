@@ -14,7 +14,7 @@ public class Direction {
 	private Type direction;
 	
 	/**
-	 * token right
+	 * 토큰을 오른쪽으로 회전시킨다
 	 * 
 	 * @param gameBoard
 	 */
@@ -42,7 +42,7 @@ public class Direction {
 	} // finish turn Right
 	
 	/**
-	 * token left rotate
+	 * 토큰을 왼쪽으로 회전시킨다
 	 * 
 	 * @param gameBoard
 	 */

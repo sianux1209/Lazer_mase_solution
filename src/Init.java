@@ -16,6 +16,10 @@ import javax.swing.JTextField;
 import javax.swing.TransferHandler;
 import javax.swing.border.LineBorder;
 
+/**
+ * JAVA GUI Setting
+ *
+ */
 public class Init extends JFrame implements MouseListener {
 
 	private JPanel contentPane;
@@ -47,7 +51,8 @@ public class Init extends JFrame implements MouseListener {
 	JTextField inputYellowR;
 
 	/**
-	 * Create the frame.
+	 * 생성자
+	 * 프레임 초기화
 	 */
 	public Init() {
 		
@@ -55,8 +60,6 @@ public class Init extends JFrame implements MouseListener {
 		buttonEvent = new ButtonEvent(this, gameBoard);
 
 	}
-	
-	// end maze func
 	
 	/**
 	 *  Implement Mouse event 
@@ -73,7 +76,7 @@ public class Init extends JFrame implements MouseListener {
 		// Button type
 		if (jc.getUIClassID().equals("ButtonUI")) {;
 			JButton jb = (JButton)jc;
-			buttonEvent.action(jb, gameBoard);
+			buttonEvent.action(jb);
 			
 		}
 		// Label UI
@@ -113,7 +116,7 @@ public class Init extends JFrame implements MouseListener {
 	
 	
 	/**
-	 * Check the number of targets
+	 * 타겟의 개수를 확인한다.
 	 */
 	public void checkTargets(){
 		
@@ -155,8 +158,9 @@ public class Init extends JFrame implements MouseListener {
 		
 	}
 
+
 	/**
-	 * init func
+	 * 컴포넌트 및 이벤트를 배치한다.
 	 */
 	public void init() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -247,14 +251,6 @@ public class Init extends JFrame implements MouseListener {
 		JTextField inputYellowR = new JTextField();
 		inputYellowR.setHorizontalAlignment(JLabel.CENTER);
 		inputYellowR.setFont(new Font("Arial", Font.PLAIN, 40));
-		
-		
-		
-
-		/*
-		 * contentPane.add(p1, BorderLayout.SOUTH); contentPane.add(p2,
-		 * BorderLayout.SOUTH);
-		 */
 
 		p1.setBounds(100, 100, 100, 100);
 		p2.setBounds(200, 100, 100, 100);
@@ -491,19 +487,7 @@ public class Init extends JFrame implements MouseListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	
-	}
-	// End init func
-	
-	public boolean isStringInt(String s) {
-		try {
-			Integer.parseInt(s);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		}
-	}
+	}// End init func
 	
 
-}
-
-//
+} // End Init class

@@ -5,6 +5,10 @@ import java.util.Random;
 
 import javax.swing.JLabel;
 
+/**
+ * 레이저의 경로를 추적한다
+ *
+ */
 public class PathTracer {
 
 	private final static String randomRotate[] = { "UP", "RIGHT", "DOWN", "LEFT" };
@@ -22,19 +26,23 @@ public class PathTracer {
 		return laser;
 	}
 
+	/**
+	 * 경로추적을 시작한다.
+	 */
 	public void start() {
 		// TODO Auto-generated method stub
 
-		laser.clear(); // Delete previous record
+		laser.clear(); // 이전의 레코드를 모두 제거한다.
 		token = new Token(gameBoard);
-		gameBoard.setGameClear(false);
-		findRedToken();
-		checkYellowToken();
+		gameBoard.setGameClear(false);	// 게임 클리어 상태를 초기화한다.
+		findRedToken();	// 시작위치를 찾는다.
+		checkYellowToken();	//옐로우 토큰이 게임보드 상에 존재하는지 찾는다.
 
+		// 레이저가 존재하지 않으면 추적을 끝낸다.
 		if (laser.isEmpty() == true)
 			return;
 
-		setRandomTokenDirection();
+		setRandomTokenDirection();	// 랜덤 토큰의 방향을 지정한다.
 
 		String tokenName = "";
 		String rotate = "";
@@ -42,7 +50,7 @@ public class PathTracer {
 		int x;
 		int y;
 
-		int LIMIT = getTokenCount(); // limit the laser shot
+		int LIMIT = getTokenCount(); // 총 토큰의 개수에 따라 레이저의 발사 회수를 제한한다.
 		int count = 0;
 
 		int laserNumber;
@@ -78,12 +86,10 @@ public class PathTracer {
 					else if (tokenName == "Target.jpg") {
 						token.target(laser.get(laserNumber), rotate);
 
-						// Chack the GameClearFlag;
 						if (laser.get(laserNumber).isSuccess() == true) {
-							System.out.println("[*]Found target!!");
+							//System.out.println("[*]Found target!!");
 							laser.get(laserNumber).setCondition(false);
-							// printResult();
-							// return;
+
 						} // end if
 
 					} // End target token
@@ -136,17 +142,11 @@ public class PathTracer {
 						token.yellow(laser.get(laserNumber), rotate);
 					}
 
-					/*
-					 * // If laser is off, quit if
-					 * (laser.get(laserNumber).isCondition() == false) {
-					 * System.out.println("[*]Not found solve!!"); //
-					 * printResult(); // return; }
-					 */
-
 				} // End laser condition check (if)
 				laserNumber++;
 			} // end inner while
 
+			// 게임 클리어가 확인되면 경로 추적을 종료한다.
 			checkGameClear();
 			if (gameBoard.isGameClear() == true) {
 				break;
@@ -156,6 +156,10 @@ public class PathTracer {
 
 	} // end start func
 
+	/**
+	 * 게임보드에 배치된 토큰의 수를 확인한다.
+	 * @return
+	 */
 	private int getTokenCount() {
 		// TODO Auto-generated method stub
 
@@ -216,20 +220,27 @@ public class PathTracer {
 
 	} // End checkYellowToken func
 
+	
+	/**
+	 * 게임이 클리어되었는지 확인한다.
+	 */
 	private void checkGameClear() {
 
 		int laserNumber = 0;
 		int laserCount = laser.size();
 
+		//총 레이저의 수와 Goal의 수가 다르면 실패
 		if (laser.size() != Integer.parseInt(gameBoard.getNumberOfTargets().getText())) {
 			return;
 		}
 
-		// Check pass yellow token
+		
+		// CheckPoint(Yellow) 토큰이 존재할 때, 통과하지 못하면 실패
+		//설명서 상에 노란색 토큰은 한개만 존재할 수 있다.
 		if (gameBoard.isYellowToken() == false)
 			return;
 
-		// If one of the lasers fails, it fails.
+		// 하나의 레이저라도 실패하면, 해당 게임은 실패한 것으로 간주한다.
 		while (laserNumber < laserCount) {
 
 			if (laser.get(laserNumber).isSuccess() == false) {
@@ -242,6 +253,9 @@ public class PathTracer {
 		gameBoard.setGameClear(true);
 	}
 
+	/**
+	 * 결과를 출력한다.
+	 */
 	public void printResult() {
 		int laserNumber = 0;
 		int laserCount = laser.size();
@@ -281,7 +295,7 @@ public class PathTracer {
 	} // End printResult func
 
 	/**
-	 * Look for red tokens at startup.
+	 * 시작 토큰(Red)를 검색한다.
 	 * 
 	 * @return
 	 */

@@ -1,11 +1,17 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
+/**
+ * 저장된 레이저의 경로를 그리는 클래스
+ *
+ */
 public class LaserDrawer extends JFrame implements Runnable {
 
 	int cx;
@@ -13,32 +19,40 @@ public class LaserDrawer extends JFrame implements Runnable {
 
 	int nx;
 	int ny;
+	
+	int xStart;
+	int yStart;
+	
+	int xWidth;
+	int yWidth;
 
-	ArrayList<Laser> laser;
-	Thread thread;
-	JPanel contentPane;
+	private ArrayList<Laser> laser;
+	private Thread thread;
 
 	int currentLocation;
 	int nextLocation;
 
+	/**
+	 * 생성자
+	 */
 	public LaserDrawer(ArrayList<Laser> laser) {
 
 		this.laser = laser;
-		
-		
-		setBackground(Color.BLACK);
+
+		setTitle("Laser Shoot");
 		setPreferredSize(new Dimension(700, 700));
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setResizable(false);
-
+		
+		
 
 		thread = new Thread(this);
 		thread.start();
 
 	}
-
+	
 	public void run() {
 
 		int laserNumber = laser.size();
@@ -65,7 +79,7 @@ public class LaserDrawer extends JFrame implements Runnable {
 
 				nx = ((nx + 1) * 100) + 50;
 				ny = ((ny + 1) * 100) + 50;
-
+				
 				while (cx != nx || cy != ny) {
 
 					if (cy < ny) {
@@ -82,33 +96,30 @@ public class LaserDrawer extends JFrame implements Runnable {
 
 					repaint();
 
-					
 					try {
-						thread.sleep(4);	// Draw spped
+						thread.sleep(4); // Draw spped
 					} catch (Exception e) {
 					} // End try-catch
 
 				} // End inner while
 
-
 				saveCount++;
 				;
 
 			} // End outer while
-			
+
 			laserCount++;
 
-		} //End while
+		} // End while
 
 	} // End run
-	
+
 
 	public void paint(Graphics g) {
-
+		
 		g.setColor(Color.RED);
-		// this.setSize(30, 30);
-		// this.setLocation(250, 250);
 		g.fillArc(cx, cy, 10, 10, 0, 360);
+		
 	}
 
 }

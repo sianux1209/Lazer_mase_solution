@@ -2,15 +2,25 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 
+/**
+ * 레이저의 상태 및 행위를 구체화한 클래스
+ */
 public class Laser {
 
 	GameBoard gameBoard;
-	CurrentLocation currentLocation;
-	CurrentLocation previousLocation;
-	ArrayList<CurrentLocation> saveLocation;
-	private boolean condition = true; // Check the laser alive
-	private boolean success = false;
+	CurrentLocation currentLocation;	// 레이저의 현재 경로
+	CurrentLocation previousLocation;	// 레이저의 이전 경로
+	ArrayList<CurrentLocation> saveLocation;	// 레이저의 전체 경로
+	private boolean condition = true; // 레이저의 활성화 상태
+	private boolean success = false;	// 타겟 도착 상태
 	
+	/**
+	 * 레이저 생성자
+	 * 
+	 * @param gameBaord
+	 * @param x
+	 * @param y
+	 */
 	public Laser(GameBoard gameBaord, int x, int y){
 		this.gameBoard = gameBaord;
 		condition = true;
@@ -42,7 +52,7 @@ public class Laser {
 
 
 	/**
-	 * The current location class of the laser
+	 * 레이저의 위치를 저장하는 내부클래스
 	 */
 	public class CurrentLocation implements Cloneable {
 
@@ -88,7 +98,7 @@ public class Laser {
 	}
 
 	/**
-	 * shoot the laser upwards
+	 * 레이저를 위로 발사한다.
 	 */
 	public void shootUp() {
 		//System.out.println("[*]shoot Up (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
@@ -132,7 +142,7 @@ public class Laser {
 
 
 	/**
-	 * shoot the laser down
+	 * 레이저를 아래로 발사한다.
 	 */
 	public void shootDown() {
 		//System.out.println("[*]shoot Down (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
@@ -177,7 +187,7 @@ public class Laser {
 	} // End shootDown func
 
 	/**
-	 * Shoot the laser left
+	 * 레이저를 왼쪽으로 발사한다.
 	 */
 	public void shootLeft() {
 		//System.out.println("[*]shoot Left (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
@@ -222,6 +232,9 @@ public class Laser {
 
 	} // End shootLeft func
 
+	/**
+	 * 레이저를 오른쪽으로 발사한다.
+	 */
 	public void shootRight() {
 		//System.out.println("[*]shoot Right (" + currentLocation.getX() + ", " + currentLocation.getY() +")");
 
@@ -264,6 +277,11 @@ public class Laser {
 
 	} // end shootRight func
 	
+	/**
+	 * 레이저가 벽면에 부딪히면, 현재위치가 이전위치가 같다.
+	 * 그 중복을 검사한다.
+	 * @return
+	 */
 	private boolean TokenDuplicateCheck() {
 		// TODO Auto-generated method stub
 		

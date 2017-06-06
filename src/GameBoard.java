@@ -12,7 +12,9 @@ public class GameBoard {
 	JLabel numberOfTargets;
 	
 	/**
-	 * set default gameboard conf
+	 * 게임보드 생성자
+	 * 게임보드의 설정을 초기화한다
+	 * 
 	 * @param gameBoard
 	 */
 	public GameBoard(JLabel... gameBoard){
@@ -33,6 +35,11 @@ public class GameBoard {
 				
 	} // finish GameBoard constructor
 	
+	/**
+	 * 사용자 입력창의 토큰 수를 저장한다.
+	 * 
+	 * @param userInput
+	 */
 	public void setUserInput(JTextField... userInput){
 		
 		final int fieldCount = 6;
@@ -63,27 +70,17 @@ public class GameBoard {
 		this.yellowToken = yellowToken;
 	}
 	
-
-
-	/**
-	 * selectedIcon getter
-	 * @return
-	 */
 	public JLabel getSelectedLabel() {
 		return this.selectedLabel;
 	}
 
-	/**
-	 * selectedIcon setter
-	 * @param selectedILabel
-	 */
 	public void setSelectedLabel(JLabel selectedILabel) {
 		this.selectedLabel = selectedILabel;
 	}
 
 
 	/**
-	 * Check game board State
+	 * 게임보드에 배치된 토큰을 콘솔로 확인한다.
 	 */
 	public void checkGameBoard(){
 		System.out.println();
@@ -99,6 +96,9 @@ public class GameBoard {
 		
 	} // finish check GameBoard func
 
+	/**
+	 * 게임보드에 배치된 토큰의 방향을 확인한다.
+	 */
 	public void checkRotate() {
 		// TODO Auto-generated method stub
 		
