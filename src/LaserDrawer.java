@@ -97,7 +97,7 @@ public class LaserDrawer extends JFrame implements Runnable {
 					repaint();
 
 					try {
-						thread.sleep(4); // Draw spped
+						thread.sleep(10); // Draw spped
 					} catch (Exception e) {
 					} // End try-catch
 
