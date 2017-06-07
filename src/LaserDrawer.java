@@ -1,11 +1,9 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 
 /**
@@ -20,12 +18,6 @@ public class LaserDrawer extends JFrame implements Runnable {
 	int nx;
 	int ny;
 	
-	int xStart;
-	int yStart;
-	
-	int xWidth;
-	int yWidth;
-
 	private ArrayList<Laser> laser;
 	private Thread thread;
 
@@ -97,7 +89,7 @@ public class LaserDrawer extends JFrame implements Runnable {
 					repaint();
 
 					try {
-						thread.sleep(4); // Draw spped
+						thread.sleep(6); // Draw spped
 					} catch (Exception e) {
 					} // End try-catch
 

@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
-
 /**
  * 레이저의 상태 및 행위를 구체화한 클래스
  */

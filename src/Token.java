@@ -1,5 +1,3 @@
-import javax.swing.JLabel;
-
 /**
  * 토큰별 기능을 정의한다.
  */

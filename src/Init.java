@@ -1,7 +1,5 @@
 
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -11,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.TransferHandler;
@@ -22,9 +21,10 @@ import javax.swing.border.LineBorder;
  */
 public class Init extends JFrame implements MouseListener {
 
-	private JPanel contentPane;
 	public ButtonEvent buttonEvent;
 	public GameBoard gameBoard;
+	
+	JLayeredPane jp;
 	
 	
 	JLabel red;
@@ -165,7 +165,7 @@ public class Init extends JFrame implements MouseListener {
 	public void init() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JPanel jp = new JPanel(null);
+		jp = new JLayeredPane();
 
 		JLabel p1 = new JLabel(new ImageIcon("White.jpg"));
 		JLabel p2 = new JLabel(new ImageIcon("White.jpg"));
@@ -404,6 +404,7 @@ public class Init extends JFrame implements MouseListener {
 		yellowR.setTransferHandler(new TransferHandler("icon"));
 		black.setTransferHandler(new TransferHandler("icon"));
 
+
 		jp.add(p1);
 		jp.add(p2);
 		jp.add(p3);
@@ -486,6 +487,7 @@ public class Init extends JFrame implements MouseListener {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+		
 	
 	}// End init func
 	

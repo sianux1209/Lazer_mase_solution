@@ -11,8 +11,6 @@ public class Direction {
 		LEFT
 	}
 	
-	private Type direction;
-	
 	/**
 	 * 토큰을 오른쪽으로 회전시킨다
 	 * 

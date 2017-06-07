@@ -14,6 +14,7 @@ public class ButtonEvent {
 	private Direction direction;
 	private PathTracer pathTracer;
 	private TokenSetter tokenSetter;
+	private LaserDrawer2 laserDrawer2;
 
 	/**
 	 * 게임보드를 초기화한다.
@@ -26,6 +27,7 @@ public class ButtonEvent {
 		this.gameBoard = gameBoard;
 		this.direction = new Direction();
 		this.pathTracer = new PathTracer(gameBoard);
+		this.laserDrawer2 = new LaserDrawer2(pathTracer.getLaser(), init);
 		
 		
 	}
@@ -72,7 +74,6 @@ public class ButtonEvent {
 		this.tokenSetter = new TokenSetter(gameBoard);
 		
 		
-		
 		// trouble shooting
 		// if there is token but the directions is null, initialize it
 		for (int i = 0; i < GameBoard.TABLE_SIZE; i++) {
@@ -86,8 +87,6 @@ public class ButtonEvent {
 
 			}
 		} // end trouble shooting
-		
-		
 		
 		
 		int cnt = 0;
@@ -137,7 +136,9 @@ public class ButtonEvent {
 	public void laser() {
 		System.out.println("Act the laser");
 		
-		new LaserDrawer(pathTracer.getLaser());
+		//new LaserDrawer(pathTracer.getLaser());
+		new LaserDrawer2(pathTracer.getLaser(), init);
+		laserDrawer2.start();
 		
 
 	} // finish laser func
