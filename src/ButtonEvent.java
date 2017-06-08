@@ -7,7 +7,7 @@ import javax.swing.JButton;
  */
 public class ButtonEvent {
 	
-	final int LIMIT = 10000000;	//해법 찾기 반복 횟수
+	final int LIMIT = Integer.MAX_VALUE;	//해법 찾기 반복 횟수
 
 	private Init init;
 	private GameBoard gameBoard;
@@ -72,6 +72,7 @@ public class ButtonEvent {
 		
 		gameBoard.setGameClear(false);
 		this.tokenSetter = new TokenSetter(gameBoard);
+		laserDrawer2.clear();
 		
 		
 		// trouble shooting
@@ -127,6 +128,10 @@ public class ButtonEvent {
 				gameBoard.gameBoard[i][j].setBorder(null);
 			} // end inner for
 		} // end outer for
+		
+		laserDrawer2.clear();
+		pathTracer.getLaser().clear();
+
 		
 	} // finish clear func
 

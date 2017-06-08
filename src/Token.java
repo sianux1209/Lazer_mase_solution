@@ -575,7 +575,7 @@ public class Token {
 	 * @param Laser
 	 */
 	public void Black(Laser laser) {
-		System.out.println("[*]black (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
+		//System.out.println("[*]black (" + laser.currentLocation.getX() + ", " + laser.currentLocation.getY() + ")");
 
 		HitDirection hitDirection = checkHitDirection(laser);
 

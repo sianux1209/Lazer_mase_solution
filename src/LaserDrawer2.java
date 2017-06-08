@@ -37,7 +37,7 @@ public class LaserDrawer2 {
 
 	public void start() {
 		// TODO Auto-generated method stub
-
+		
 		int laserNumber = laser.size();
 		int laserCount = 0;
 
@@ -125,35 +125,34 @@ public class LaserDrawer2 {
 			laserCount++;
 
 		} // End while
-		
+
 		drawLaser();
 
-	} //End start func
+	} // End start func
 
 	public void drawLaser() {
 
 		for (int i = 0; i < path.size(); i++) {
-			System.out.println("path >> " + path.get(i).getX() + " " + path.get(i).getY() + " " + path.get(i).getWidth()
-					+ " " + path.get(i).getHeight());
-
 			init.jp.add(path.get(i), 1, 0);
 		}
 
 		init.validate();
 		init.repaint();
 
-	} // End run
+	} // End drawLaser func
 
 	public void clear() {
-		
-		for(int i=0; i<path.size();i++){
+
+		for (int i = 0; i < path.size(); i++) {
 			init.jp.remove(path.get(i));
-		}
-			path.clear();
-			
+		} // End for
+		
+		path.clear();
+
 		init.validate();
 		init.repaint();
 
-	}
+
+	} // End clear func
 
 }
