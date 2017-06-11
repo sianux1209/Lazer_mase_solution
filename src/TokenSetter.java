@@ -106,7 +106,7 @@ public class TokenSetter {
 		
 		//set mirror token
 		for(i=0; i<mirror; i++){
-			emptySpace.get(tokenCount).setIcon(new ImageIcon("mirrorR.jpg"));
+			emptySpace.get(tokenCount).setIcon(new ImageIcon("MirrorR.jpg"));
 			emptySpace.get(tokenCount).setBorder(new LineBorder(Color.BLUE,3));
 			tokenCount++;
 		}

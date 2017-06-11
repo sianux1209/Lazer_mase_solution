@@ -134,7 +134,7 @@ public class PathTracer {
 						token.target(laser.get(laserNumber), rotate);
 					} // End targetR token
 
-					else if (tokenName == "mirrorR.jpg") {
+					else if (tokenName == "MirrorR.jpg" ) {
 						token.mirror(laser.get(laserNumber), rotate);
 					} // End mirrorR token
 
@@ -187,7 +187,7 @@ public class PathTracer {
 		// TODO Auto-generated method stub
 
 		List<String> randomList = Arrays.asList(
-				new String[] { "RedR.jpg", "TargetR.jpg", "mirrorR.jpg", "GreenR.jpg", "BlueR.jpg", "YellowR.jpg" });
+				new String[] { "RedR.jpg", "TargetR.jpg", "MirrorR.jpg",  "GreenR.jpg", "BlueR.jpg", "YellowR.jpg" });
 
 		for (int x = 0; x < GameBoard.TABLE_SIZE; x++) {
 			for (int y = 0; y < GameBoard.TABLE_SIZE; y++) {
