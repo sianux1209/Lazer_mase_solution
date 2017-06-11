@@ -45,7 +45,7 @@ public class ButtonEvent {
 			start();
 			
 			gameBoard.checkGameBoard();
-			gameBoard.checkRotate();
+			//gameBoard.checkRotate();
 			
 
 		} else if (jb.getIcon().toString().equals("Clear.jpg")) {

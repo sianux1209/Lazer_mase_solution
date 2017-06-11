@@ -251,26 +251,26 @@ public class PathTracer {
 
 		// 총 레이저의 수와 Goal의 수가 다르면 실패
 		if (laser.size() != Integer.parseInt(gameBoard.getNumberOfTargets().getText())) {
-			System.out.println("AAAA");
+			//System.out.println("AAAA");
 			return;
 		}
 
 		// 모든 토큰을 지나야 한다.
 		if (checkPassAllToken() == false) {
-			System.out.println("BBBB");
+			//System.out.println("BBBB");
 			return;
 		}
 
 		// 타겟 토큰의 수가, 마지막 레이저 위치에서 타겟 토큰 수가 일치하여야 한다.
 		if (checkTargeting() == false) {
-			System.out.println("CCCC");
+			//System.out.println("CCCC");
 			return;
 		}
 
 		// CheckPoint(Yellow) 토큰이 존재할 때, 통과하지 못하면 실패
 		// 설명서 상에 노란색 토큰은 한개만 존재할 수 있다.
 		if (gameBoard.isYellowToken() == false) {
-			System.out.println("DDDD");
+			//System.out.println("DDDD");
 			return;
 		}
 
@@ -278,7 +278,7 @@ public class PathTracer {
 		while (laserNumber < laserCount) {
 
 			if (laser.get(laserNumber).isSuccess() == false) {
-				System.out.println("EEEE");
+				//System.out.println("EEEE");
 				return;
 			}
 
@@ -320,7 +320,7 @@ public class PathTracer {
 
 		} // End outer while
 
-		System.out.println("**********" + targeting + targetTokenCount);
+		//System.out.println("**********" + targeting + targetTokenCount);
 
 		// 타겟 토큰의 수가, 마지막 레이저 위치에서 타겟 토큰 수가 일치하면 True
 		if (targeting == targetTokenCount) {
