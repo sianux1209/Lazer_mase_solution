@@ -19,6 +19,7 @@ public class PathTracer {
 	Random random = new Random();
 	private ArrayList<Laser> laser = new ArrayList<Laser>();
 	int tokenCount;
+	int targetTokenCount;
 
 	public PathTracer(GameBoard gameBoard) {
 		this.gameBoard = gameBoard;
@@ -36,16 +37,16 @@ public class PathTracer {
 
 		laser.clear(); // 이전의 레코드를 모두 제거한다.
 		token = new Token(gameBoard);
-		gameBoard.setGameClear(false);	// 게임 클리어 상태를 초기화한다.
-		findRedToken();	// 시작위치를 찾는다.
-		checkYellowToken();	//옐로우 토큰이 게임보드 상에 존재하는지 찾는다.
-		tokenCount = getTokenCount();
+		gameBoard.setGameClear(false); // 게임 클리어 상태를 초기화한다.
+		findRedToken(); // 시작위치를 찾는다.
+		checkYellowToken(); // 옐로우 토큰이 게임보드 상에 존재하는지 찾는다.
+		getTokenCount(); // 토큰의 수를 카운트한다.
 
 		// 레이저가 존재하지 않으면 추적을 끝낸다.
 		if (laser.isEmpty() == true)
 			return;
 
-		setRandomTokenDirection();	// 랜덤 토큰의 방향을 지정한다.
+		setRandomTokenDirection(); // 랜덤 토큰의 방향을 지정한다.
 
 		String tokenName = "";
 		String rotate = "";
@@ -75,7 +76,7 @@ public class PathTracer {
 					tokenName = gameBoard.gameBoard[y][x].getIcon().toString(); // Get
 																				// token
 																				// name
-					
+
 					rotate = gameBoard.gameBoard[y][x].getName(); // Get token
 																	// rotate
 
@@ -90,7 +91,7 @@ public class PathTracer {
 						token.target(laser.get(laserNumber), rotate);
 
 						if (laser.get(laserNumber).isSuccess() == true) {
-							//System.out.println("[*]Found target!!");
+							// System.out.println("[*]Found target!!");
 							laser.get(laserNumber).setCondition(false);
 
 						} // end if
@@ -99,13 +100,13 @@ public class PathTracer {
 
 					else if (tokenName == "Mirror.jpg") {
 						token.mirror(laser.get(laserNumber), rotate);
-						
+
 						if (laser.get(laserNumber).isSuccess() == true) {
-							//System.out.println("[*]Found target!!");
+							// System.out.println("[*]Found target!!");
 							laser.get(laserNumber).setCondition(false);
 
 						} // end if
-						
+
 					} // End mirror token
 
 					else if (tokenName == "Green.jpg") {
@@ -134,7 +135,7 @@ public class PathTracer {
 						token.target(laser.get(laserNumber), rotate);
 					} // End targetR token
 
-					else if (tokenName == "MirrorR.jpg" ) {
+					else if (tokenName == "MirrorR.jpg") {
 						token.mirror(laser.get(laserNumber), rotate);
 					} // End mirrorR token
 
@@ -167,32 +168,42 @@ public class PathTracer {
 
 	/**
 	 * 게임보드에 배치된 토큰의 수를 확인한다.
+	 * 
 	 * @return
 	 */
-	private int getTokenCount() {
+	private void getTokenCount() {
 		// TODO Auto-generated method stub
 
-		int cnt = 0;
+		int tokenCount = 0;
+		int targetTokenCount = 0;
+
 		for (JLabel[] y : gameBoard.gameBoard) {
 			for (JLabel x : y) {
-				if (!x.getIcon().toString().equals("White.jpg"))
-					cnt++;
+				if (!x.getIcon().toString().equals("White.jpg")) {
+					tokenCount++;
+				}
+				if (x.getIcon().toString().equals("Target.jpg") || x.getIcon().toString().equals("TargetR.jpg")) {
+					targetTokenCount++;
 
-			}
-		}
-		return cnt;
+				}
+
+			} // End inner for
+
+		} // End outer for
+
+		this.tokenCount = tokenCount;
+		this.targetTokenCount = targetTokenCount;
 	}
 
 	private void setRandomTokenDirection() {
 		// TODO Auto-generated method stub
 
 		List<String> randomList = Arrays.asList(
-				new String[] { "RedR.jpg", "TargetR.jpg", "MirrorR.jpg",  "GreenR.jpg", "BlueR.jpg", "YellowR.jpg" });
+				new String[] { "RedR.jpg", "TargetR.jpg", "MirrorR.jpg", "GreenR.jpg", "BlueR.jpg", "YellowR.jpg" });
 
 		for (int x = 0; x < GameBoard.TABLE_SIZE; x++) {
 			for (int y = 0; y < GameBoard.TABLE_SIZE; y++) {
 
-				
 				String tokenName = gameBoard.gameBoard[y][x].getIcon().toString();
 				if (randomList.contains(tokenName)) {
 					gameBoard.gameBoard[y][x].setName(getRandomRotate());
@@ -229,7 +240,6 @@ public class PathTracer {
 
 	} // End checkYellowToken func
 
-	
 	/**
 	 * 게임이 클리어되었는지 확인한다.
 	 */
@@ -238,19 +248,29 @@ public class PathTracer {
 		int laserNumber = 0;
 		int laserCount = laser.size();
 
-		//총 레이저의 수와 Goal의 수가 다르면 실패
+
+		// 총 레이저의 수와 Goal의 수가 다르면 실패
 		if (laser.size() != Integer.parseInt(gameBoard.getNumberOfTargets().getText())) {
+			System.out.println("AAAA");
 			return;
 		}
-		
-		//모든 토큰을 지나야 한다.
-		if(checkPassAllToken() == false){
+
+		// 모든 토큰을 지나야 한다.
+		if (checkPassAllToken() == false) {
+			System.out.println("BBBB");
 			return;
 		}
-		
+
+		// 타겟 토큰의 수가, 마지막 레이저 위치에서 타겟 토큰 수가 일치하여야 한다.
+		if (checkTargeting() == false) {
+			System.out.println("CCCC");
+			return;
+		}
+
 		// CheckPoint(Yellow) 토큰이 존재할 때, 통과하지 못하면 실패
-		//설명서 상에 노란색 토큰은 한개만 존재할 수 있다.
-		if (gameBoard.isYellowToken() == false){
+		// 설명서 상에 노란색 토큰은 한개만 존재할 수 있다.
+		if (gameBoard.isYellowToken() == false) {
+			System.out.println("DDDD");
 			return;
 		}
 
@@ -258,6 +278,7 @@ public class PathTracer {
 		while (laserNumber < laserCount) {
 
 			if (laser.get(laserNumber).isSuccess() == false) {
+				System.out.println("EEEE");
 				return;
 			}
 
@@ -267,24 +288,66 @@ public class PathTracer {
 		gameBoard.setGameClear(true);
 	}
 
+	
+
+	/**
+	 * 타겟 토큰의 수가, 마지막 레이저 위치에서 타겟 토큰 수가 일치하여야 한다.
+	 * 
+	 * @return
+	 */
+	private boolean checkTargeting() {
+		// TODO Auto-generated method stub
+
+		int laserNumber = 0;
+		int laserCount = laser.size();
+
+		int targeting = 0;
+
+		while (laserNumber < laserCount) {
+
+			int saveLaserSize = laser.get(laserNumber).saveLocation.size();
+
+			// 레이저의 마지막 위치
+			int x = laser.get(laserNumber).saveLocation.get(saveLaserSize - 1).getX();
+			int y = laser.get(laserNumber).saveLocation.get(saveLaserSize - 1).getY();
+
+			// 레이저 마지막 위치가 Target이면 카운트 증가
+			if (gameBoard.gameBoard[y][x].getIcon().toString() == "Target.jpg"
+					|| gameBoard.gameBoard[y][x].getIcon().toString() == "TargetR.jpg") {
+				targeting++;
+			}
+			laserNumber++;
+
+		} // End outer while
+
+		System.out.println("**********" + targeting + targetTokenCount);
+
+		// 타겟 토큰의 수가, 마지막 레이저 위치에서 타겟 토큰 수가 일치하면 True
+		if (targeting == targetTokenCount) {
+			return true;
+		}
+
+		return false;
+	}
+
 	private boolean checkPassAllToken() {
 		// TODO Auto-generated method stub
-		
+
 		HashSet<Laser.CurrentLocation> allPath = getAllPath();
-		
-		if(tokenCount == allPath.size()){
+
+		if (tokenCount == allPath.size()) {
 			return true;
 		}
 		return false;
 
 	}
-	
-	private HashSet<Laser.CurrentLocation> getAllPath(){
-		
+
+	private HashSet<Laser.CurrentLocation> getAllPath() {
+
 		int laserNumber = 0;
 		int laserCount = laser.size();
-		
-		//모든 경로를 저장한다.
+
+		// 모든 경로를 저장한다.
 		HashSet<Laser.CurrentLocation> allPath = new HashSet<Laser.CurrentLocation>();
 
 		while (laserNumber < laserCount) {
@@ -305,10 +368,9 @@ public class PathTracer {
 			laserNumber++;
 
 		} // End outer while
-		
+
 		return allPath;
-		
-		
+
 	};
 
 	/**
