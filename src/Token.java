@@ -492,11 +492,13 @@ public class Token {
 		if (rotate == "UP") {
 
 			if (hitDirection == HitDirection.DOWNtoUP) {
-
+				laser.setSuccess(true);
+				laser.setCondition(false);
 			} // end inner if
 
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
-
+				laser.setSuccess(false);
+				laser.setCondition(false);
 			} // end inner if
 
 			else if (hitDirection == HitDirection.UPtoDOWN) {
@@ -516,9 +518,13 @@ public class Token {
 
 			} // end inner if
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
+				laser.setSuccess(true);
+				laser.setCondition(false);
 
 			} // end inner if
 			else if (hitDirection == HitDirection.UPtoDOWN) {
+				laser.setSuccess(false);
+				laser.setCondition(false);
 
 			} // end inner if
 			else if (hitDirection == HitDirection.RIGHTtoLEFT) {
@@ -538,9 +544,13 @@ public class Token {
 
 			} // end inner if
 			else if (hitDirection == HitDirection.UPtoDOWN) {
+				laser.setSuccess(true);
+				laser.setCondition(false);
 
 			} // end inner if
 			else if (hitDirection == HitDirection.RIGHTtoLEFT) {
+				laser.setSuccess(false);
+				laser.setCondition(false);
 
 			} // end inner if
 
@@ -548,6 +558,8 @@ public class Token {
 		if (rotate == "LEFT") {
 
 			if (hitDirection == HitDirection.DOWNtoUP) {
+				laser.setSuccess(false);
+				laser.setCondition(false);
 
 			} // end inner if
 			else if (hitDirection == HitDirection.LEFTtoRIGHT) {
@@ -559,6 +571,8 @@ public class Token {
 
 			} // end inner if
 			else if (hitDirection == HitDirection.RIGHTtoLEFT) {
+				laser.setSuccess(true);
+				laser.setCondition(false);
 
 			} // end inner if
 

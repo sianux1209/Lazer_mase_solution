@@ -10,7 +10,6 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.TransferHandler;
 import javax.swing.border.LineBorder;
@@ -42,7 +41,7 @@ public class Init extends JFrame implements MouseListener {
 	JLabel black;
 	JLabel token;
 	
-	JLabel numberOfTargets;
+	JTextField numberOfTargets;
 	JTextField inputRedR;
 	JTextField inputTargetR;
 	JTextField inputMirrorR;
@@ -106,34 +105,10 @@ public class Init extends JFrame implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		JComponent jc = (JComponent) e.getSource();
 		jc.setBorder(new LineBorder(Color.red,0));
-		checkTargets();	// check the number of targets
 		setControlToken();
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {}
-	
-	
-	
-	
-	/**
-	 * 타겟의 개수를 확인한다.
-	 */
-	public void checkTargets(){
-		
-		Integer targetCount = 0;
-		for(int i=0; i<GameBoard.TABLE_SIZE; i++){
-			for(int j=0; j<GameBoard.TABLE_SIZE; j++){
-				String token = gameBoard.gameBoard[i][j].getIcon().toString();
-				if(token == "Target.jpg" || token == "TargetR.jpg"){
-					targetCount++;
-				} // if end
-			} // inner for
-		} // end outer for
-		
-		this.numberOfTargets.setText(targetCount.toString());
-		
-	} // end checkTargets func
-	
 	
 	/*
 	 * set tokens of control panel
@@ -224,7 +199,7 @@ public class Init extends JFrame implements MouseListener {
 		JLabel userBlueR = new JLabel(new ImageIcon("BlueR.jpg"));
 		JLabel userYellowR = new JLabel(new ImageIcon("YellowR.jpg"));
 
-		numberOfTargets = new JLabel("0");
+		numberOfTargets = new JTextField("0");
 		numberOfTargets.setHorizontalAlignment(JLabel.CENTER);
 		numberOfTargets.setFont(new Font("Arial", Font.PLAIN, 40));
 		

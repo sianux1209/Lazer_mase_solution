@@ -9,7 +9,7 @@ public class GameBoard {
 	public static final int TABLE_SIZE = 5;
 	private boolean yellowToken = true;
 	private boolean gameClear = false;
-	JLabel numberOfTargets;
+	JTextField numberOfTargets;
 	
 	/**
 	 * 게임보드 생성자
@@ -113,11 +113,11 @@ public class GameBoard {
 		System.out.println();
 	}
 
-	public JLabel getNumberOfTargets(){
+	public JTextField getNumberOfTargets(){
 		return numberOfTargets;
 	}
 
-	public void setNumberOfTargets(JLabel numberOfTargets) {
+	public void setNumberOfTargets(JTextField numberOfTargets) {
 		// TODO Auto-generated method stub
 		
 		this.numberOfTargets = numberOfTargets;

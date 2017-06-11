@@ -78,12 +78,11 @@ public class LaserDrawer2 {
 
 					horizontal = 10;
 					vertical = ny - cy;
-					;
+					
 
 					currentPath.setBounds(cx - 5, cy, horizontal, vertical);
 					path.add(currentPath);
 
-					System.out.println(cx + " " + cy + " " + horizontal + " " + vertical);
 				}
 				// 현재위치가 다음위치보다 왼쪽에 있을 때
 				else if (cx < nx) {
@@ -93,7 +92,7 @@ public class LaserDrawer2 {
 					currentPath.setBounds(cx, cy - 5, horizontal, vertical);
 					path.add(currentPath);
 
-					System.out.println(cx + " " + cy + " " + horizontal + " " + vertical);
+					//System.out.println(cx + " " + cy + " " + horizontal + " " + vertical);
 
 				}
 				// 현재위치가 다음위치보다 위에 있을 때
@@ -104,7 +103,7 @@ public class LaserDrawer2 {
 					currentPath.setBounds(nx - 5, ny, horizontal, vertical);
 					path.add(currentPath);
 
-					System.out.println(nx + " " + ny + " " + horizontal + " " + vertical);
+					//System.out.println(nx + " " + ny + " " + horizontal + " " + vertical);
 
 				}
 				// 현재위치가 다음위치보다 오른쪽에 있을 때
@@ -115,7 +114,7 @@ public class LaserDrawer2 {
 					currentPath.setBounds(nx, ny - 5, horizontal, vertical);
 					path.add(currentPath);
 
-					System.out.println(nx + " " + ny + " " + horizontal + " " + vertical);
+					//System.out.println(nx + " " + ny + " " + horizontal + " " + vertical);
 				}
 
 				saveCount++;

@@ -8,7 +8,7 @@ import javax.swing.JButton;
 public class ButtonEvent {
 	
 	final int LIMIT = Integer.MAX_VALUE;	//해법 찾기 반복 횟수
-
+	//int LIMIT = 100;
 	private Init init;
 	private GameBoard gameBoard;
 	private Direction direction;
@@ -45,7 +45,7 @@ public class ButtonEvent {
 			start();
 			
 			gameBoard.checkGameBoard();
-			//gameBoard.checkRotate();
+			gameBoard.checkRotate();
 			
 
 		} else if (jb.getIcon().toString().equals("Clear.jpg")) {
@@ -94,7 +94,6 @@ public class ButtonEvent {
 		boolean state = true;
 		
 		state = tokenSetter.setUserToken();
-		init.checkTargets();
 				
 		while(gameBoard.isGameClear() == false){
 			

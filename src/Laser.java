@@ -54,8 +54,8 @@ public class Laser {
 	 */
 	public class CurrentLocation implements Cloneable {
 
-		private int x;
-		private int y;
+		private Integer x;
+		private Integer y;
 
 		public CurrentLocation(int x, int y) {
 			this.x = x;
@@ -89,12 +89,34 @@ public class Laser {
 			return "[" + Integer.toString(x) + ", " + Integer.toString(y) + "]";
 		}
 
+		@Override
 		public Object clone() throws CloneNotSupportedException {
 			return super.clone();
 		}
+		
+		@Override
+		public boolean equals(Object object){
+			
+			CurrentLocation diff = (CurrentLocation)object;
+			
+			if(getX() == diff.getX() && getY() == diff.getY()){
+				return true;
+			} // End if
+			
+			return false;
+		} // End equals
+		
+		@Override
+		public int hashCode(){
+			String str = x.toString() + y.toString();
+			
+			return str.hashCode();
+		}
+		
 
-	}
-
+	
+	}  // End inner class
+	
 	/**
 	 * 레이저를 위로 발사한다.
 	 */

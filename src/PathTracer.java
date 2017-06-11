@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ public class PathTracer {
 	Token token;
 	Random random = new Random();
 	private ArrayList<Laser> laser = new ArrayList<Laser>();
+	int tokenCount;
 
 	public PathTracer(GameBoard gameBoard) {
 		this.gameBoard = gameBoard;
@@ -37,6 +39,7 @@ public class PathTracer {
 		gameBoard.setGameClear(false);	// 게임 클리어 상태를 초기화한다.
 		findRedToken();	// 시작위치를 찾는다.
 		checkYellowToken();	//옐로우 토큰이 게임보드 상에 존재하는지 찾는다.
+		tokenCount = getTokenCount();
 
 		// 레이저가 존재하지 않으면 추적을 끝낸다.
 		if (laser.isEmpty() == true)
@@ -50,14 +53,13 @@ public class PathTracer {
 		int x;
 		int y;
 
-		int LIMIT = getTokenCount(); // 총 토큰의 개수에 따라 레이저의 발사 회수를 제한한다.
 		int count = 0;
 
 		int laserNumber;
 		int laserCount;
 
-		// The laser can shoot only LIMIT times.
-		while (count < LIMIT) {
+		// 총 토큰의 개수에 따라 레이저의 발사 회수를 제한한다.
+		while (count < tokenCount) {
 
 			laserNumber = 0;
 			laserCount = laser.size();
@@ -73,6 +75,7 @@ public class PathTracer {
 					tokenName = gameBoard.gameBoard[y][x].getIcon().toString(); // Get
 																				// token
 																				// name
+					
 					rotate = gameBoard.gameBoard[y][x].getName(); // Get token
 																	// rotate
 
@@ -96,7 +99,13 @@ public class PathTracer {
 
 					else if (tokenName == "Mirror.jpg") {
 						token.mirror(laser.get(laserNumber), rotate);
+						
+						if (laser.get(laserNumber).isSuccess() == true) {
+							//System.out.println("[*]Found target!!");
+							laser.get(laserNumber).setCondition(false);
 
+						} // end if
+						
 					} // End mirror token
 
 					else if (tokenName == "Green.jpg") {
@@ -125,7 +134,7 @@ public class PathTracer {
 						token.target(laser.get(laserNumber), rotate);
 					} // End targetR token
 
-					else if (tokenName == "MirrorR.jpg") {
+					else if (tokenName == "mirrorR.jpg") {
 						token.mirror(laser.get(laserNumber), rotate);
 					} // End mirrorR token
 
@@ -178,13 +187,13 @@ public class PathTracer {
 		// TODO Auto-generated method stub
 
 		List<String> randomList = Arrays.asList(
-				new String[] { "RedR.jpg", "TargetR.jpg", "MirrorR.jpg", "GreenR.jpg", "BlueR.jpg", "YellowR.jpg" });
+				new String[] { "RedR.jpg", "TargetR.jpg", "mirrorR.jpg", "GreenR.jpg", "BlueR.jpg", "YellowR.jpg" });
 
 		for (int x = 0; x < GameBoard.TABLE_SIZE; x++) {
 			for (int y = 0; y < GameBoard.TABLE_SIZE; y++) {
 
+				
 				String tokenName = gameBoard.gameBoard[y][x].getIcon().toString();
-
 				if (randomList.contains(tokenName)) {
 					gameBoard.gameBoard[y][x].setName(getRandomRotate());
 				} // end if
@@ -233,12 +242,17 @@ public class PathTracer {
 		if (laser.size() != Integer.parseInt(gameBoard.getNumberOfTargets().getText())) {
 			return;
 		}
-
+		
+		//모든 토큰을 지나야 한다.
+		if(checkPassAllToken() == false){
+			return;
+		}
 		
 		// CheckPoint(Yellow) 토큰이 존재할 때, 통과하지 못하면 실패
 		//설명서 상에 노란색 토큰은 한개만 존재할 수 있다.
-		if (gameBoard.isYellowToken() == false)
+		if (gameBoard.isYellowToken() == false){
 			return;
+		}
 
 		// 하나의 레이저라도 실패하면, 해당 게임은 실패한 것으로 간주한다.
 		while (laserNumber < laserCount) {
@@ -252,6 +266,50 @@ public class PathTracer {
 
 		gameBoard.setGameClear(true);
 	}
+
+	private boolean checkPassAllToken() {
+		// TODO Auto-generated method stub
+		
+		HashSet<Laser.CurrentLocation> allPath = getAllPath();
+		
+		if(tokenCount == allPath.size()){
+			return true;
+		}
+		return false;
+
+	}
+	
+	private HashSet<Laser.CurrentLocation> getAllPath(){
+		
+		int laserNumber = 0;
+		int laserCount = laser.size();
+		
+		//모든 경로를 저장한다.
+		HashSet<Laser.CurrentLocation> allPath = new HashSet<Laser.CurrentLocation>();
+
+		while (laserNumber < laserCount) {
+
+			int saveLaserNumber = 0;
+			int saveLaserCount = laser.get(laserNumber).saveLocation.size();
+
+			while (saveLaserNumber < saveLaserCount) {
+
+				allPath.add(laser.get(laserNumber).saveLocation.get(saveLaserNumber));
+
+				saveLaserNumber++;
+
+			} // End inner while
+
+			// System.out.println("[" + laserNumber + "] :" +
+			// laser.get(laserNumber).isCondition());
+			laserNumber++;
+
+		} // End outer while
+		
+		return allPath;
+		
+		
+	};
 
 	/**
 	 * 결과를 출력한다.
