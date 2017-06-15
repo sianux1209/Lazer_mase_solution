@@ -140,7 +140,9 @@ public class Init extends JFrame implements MouseListener {
 	public void init() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		setTitle("Laser Maze Solution");
 		jp = new JLayeredPane();
+		
 
 		JLabel p1 = new JLabel(new ImageIcon("White.jpg"));
 		JLabel p2 = new JLabel(new ImageIcon("White.jpg"));

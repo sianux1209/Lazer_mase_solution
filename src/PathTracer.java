@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
@@ -19,12 +20,14 @@ public class PathTracer {
 	Random random = new Random();
 	private ArrayList<Laser> laser = new ArrayList<Laser>();
 	int tokenCount;
+	int tokenCountWithoutBlack;
 	int targetTokenCount;
 
 	public PathTracer(GameBoard gameBoard) {
 		this.gameBoard = gameBoard;
 	}
 
+	
 	public ArrayList<Laser> getLaser() {
 		return laser;
 	}
@@ -182,6 +185,7 @@ public class PathTracer {
 				if (!x.getIcon().toString().equals("White.jpg")) {
 					tokenCount++;
 				}
+				
 				if (x.getIcon().toString().equals("Target.jpg") || x.getIcon().toString().equals("TargetR.jpg")) {
 					targetTokenCount++;
 
@@ -255,14 +259,14 @@ public class PathTracer {
 			return;
 		}
 
-		// 모든 토큰을 지나야 한다.
-		if (checkPassAllToken() == false) {
+		// 타겟 토큰의 수가, 마지막 레이저 위치에서 타겟 토큰 수가 일치하여야 한다.
+		if (checkTargeting() == false) {
 			//System.out.println("BBBB");
 			return;
 		}
-
-		// 타겟 토큰의 수가, 마지막 레이저 위치에서 타겟 토큰 수가 일치하여야 한다.
-		if (checkTargeting() == false) {
+		
+		// 검정색 토큰을 제외한 모든 토큰을 지나야 한다.
+		if (checkPassAllToken() == false) {
 			//System.out.println("CCCC");
 			return;
 		}
@@ -335,11 +339,33 @@ public class PathTracer {
 
 		HashSet<Laser.CurrentLocation> allPath = getAllPath();
 
-		if (tokenCount == allPath.size()) {
+		if (tokenCountWithoutBlack == allPath.size()) {
 			return true;
 		}
+		
+		
+		
 		return false;
 
+	}
+
+	public void getTokenCountWithoutBlack() {
+		// TODO Auto-generated method stub
+		
+		tokenCountWithoutBlack = 0;
+		
+		for(int y=0; y<GameBoard.TABLE_SIZE; y++){
+			for(int x=0; x<GameBoard.TABLE_SIZE; x++){
+				String tokenName= gameBoard.gameBoard[y][x].getIcon().toString();
+				
+				if((!tokenName.equals("White.jpg")) && (!tokenName.equals("Black.jpg"))){
+
+					tokenCountWithoutBlack++;
+					
+				}
+			}
+		}
+	
 	}
 
 	private HashSet<Laser.CurrentLocation> getAllPath() {
@@ -357,7 +383,13 @@ public class PathTracer {
 
 			while (saveLaserNumber < saveLaserCount) {
 
-				allPath.add(laser.get(laserNumber).saveLocation.get(saveLaserNumber));
+				int x = laser.get(laserNumber).saveLocation.get(saveLaserNumber).getX();
+				int y = laser.get(laserNumber).saveLocation.get(saveLaserNumber).getY();
+				
+				if(gameBoard.gameBoard[y][x].getIcon().toString() != "White.jpg"
+						&& gameBoard.gameBoard[y][x].getIcon().toString() != "Black.jpg"){
+					allPath.add(laser.get(laserNumber).saveLocation.get(saveLaserNumber));
+				}
 
 				saveLaserNumber++;
 
@@ -372,6 +404,54 @@ public class PathTracer {
 		return allPath;
 
 	};
+	
+	/**
+	 * 출력할 때 랜덤토큰을, 일반 토큰으로 변환하여 출력한다.
+	 */
+	public void printRandomToken(){
+		
+		RotatedIcon rotatedIcon;
+		
+		List<String> randomList = Arrays.asList(
+				new String[] { "RedR.jpg", "TargetR.jpg", "MirrorR.jpg", "GreenR.jpg", "BlueR.jpg", "YellowR.jpg" });
+
+		for (int x = 0; x < GameBoard.TABLE_SIZE; x++) {
+			for (int y = 0; y < GameBoard.TABLE_SIZE; y++) {
+
+				String tokenName = gameBoard.gameBoard[y][x].getIcon().toString();
+				if (randomList.contains(tokenName)) {
+					
+					String rotate = gameBoard.gameBoard[y][x].getName();
+					int index = tokenName.indexOf("R", 1);
+					tokenName = tokenName.substring(0, index) + tokenName.substring(index+1);
+					
+					
+					if (rotate == "UP") {
+						gameBoard.gameBoard[y][x].setIcon(new ImageIcon(tokenName));
+					}
+
+					else if (rotate == "RIGHT") {
+						rotatedIcon = new RotatedIcon(new ImageIcon(tokenName), RotatedIcon.Rotate.DOWN);
+						gameBoard.gameBoard[y][x].setIcon(rotatedIcon);
+						
+					} else if (rotate == "DOWN") {
+						rotatedIcon = new RotatedIcon(new ImageIcon(tokenName), RotatedIcon.Rotate.UPSIDE_DOWN);
+						gameBoard.gameBoard[y][x].setIcon(rotatedIcon);
+
+
+					} else if (rotate == "LEFT") {
+						rotatedIcon = new RotatedIcon(new ImageIcon(tokenName), RotatedIcon.Rotate.UP);
+						gameBoard.gameBoard[y][x].setIcon(rotatedIcon);
+
+					
+				} // end if
+			} // end inner for
+
+		} // end outer for
+
+	}// end setRandomTokenDirection
+		
+	}
 
 	/**
 	 * 결과를 출력한다.

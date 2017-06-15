@@ -8,7 +8,7 @@ import javax.swing.JButton;
 public class ButtonEvent {
 	
 	final int LIMIT = Integer.MAX_VALUE;	//해법 찾기 반복 횟수
-	//int LIMIT = 100;
+	//int LIMIT = 1000;
 	private Init init;
 	private GameBoard gameBoard;
 	private Direction direction;
@@ -94,6 +94,7 @@ public class ButtonEvent {
 		boolean state = true;
 		
 		state = tokenSetter.setUserToken();
+		pathTracer.getTokenCountWithoutBlack();
 				
 		while(gameBoard.isGameClear() == false){
 			
@@ -110,6 +111,7 @@ public class ButtonEvent {
 		
 		
 		pathTracer.printResult();
+		pathTracer.printRandomToken();
 
 	} // finish start func
 	

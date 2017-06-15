@@ -29,7 +29,7 @@ public class Laser {
 		
 		previousLocation = saveLocation.get(0);
 	}
-	
+
 	public boolean isSuccess() {
 		return success;
 	}
